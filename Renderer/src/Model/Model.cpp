@@ -23,6 +23,6 @@ void Model::scale(const glm::vec3& dim)
 void Model::render(GLuint& vao)
 {
 	glBindVertexArray(vao);
-	buffer.bind();
-	glDrawArrays(GL_TRIANGLES, 0, vertexCount());
+	bindIBO();
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
 }
