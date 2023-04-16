@@ -99,7 +99,7 @@ ObjModel::ObjModel(const std::string& fileName, unsigned int& vao)
 			add({ vertex, normal, uv });
 		}
 
-		populateVBO(vao);
+		populateBuffers(vao);
 	}
 }
 

@@ -20,9 +20,8 @@ private:
 
 private:
 	LightManager lights;
-	float modelRot = 0.0f;
 	unsigned int vao;
-	//ObjModel model;
-	Terrain terrain;
+	ObjModel model;
+	//Terrain terrain;
 };
 
