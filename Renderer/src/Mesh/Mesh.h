@@ -24,7 +24,8 @@ public:
 		}
 	}
 
-	void add(const Vertex& vertex)
+	// Used for OBJ models where we don't have index data
+	void addOBJVertex(const Vertex& vertex)
 	{
 		auto it = indexMap.find(vertex.position);
 		if (it != indexMap.end())
@@ -39,14 +40,14 @@ public:
 			indices.push_back(index);
 			indexMap.insert(std::pair<glm::vec3, unsigned int>(vertex.position, index));
 		}
-
 	}
+	
+	// Used when we can get the index data manually
+	void addVertex(const Vertex& vertex) { vertices.emplace_back(vertex); }
+	void addIndex(const unsigned int index) { indices.push_back(index); }
+
 	void bindVBO() { buffer.bind(); }
 	void bindIBO() { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo); }
-
-	const glm::mat4& getModelMatrix() const { return modelMatrix; }
-
-
 	void populateBuffers(GLuint& vao)
 	{
 		buffer = VertexBuffer(vertices.data(), vertices.size() * sizeof(Vertex));
@@ -59,7 +60,9 @@ public:
 		bindIBO();
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
 	}
+	void clearIndexMap() { indexMap.clear(); }
 
+	const glm::mat4& getModelMatrix() const { return modelMatrix; }
 
 private:
 	VertexBuffer buffer;

@@ -46,7 +46,9 @@ Window::Window(std::string title, std::size_t width, std::size_t height)
     // During init, enable debug output
     /*glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(MessageCallback, 0);*/
-    renderer = new Renderer((float)width / (float)height);
+
+    renderer = new Renderer((float)width / (float)height, window);
+
 }
 
 Window::~Window()
@@ -62,11 +64,13 @@ void Window::startApplication()
     {
         renderer->renderFrame();
         FPS::update();
+
         /* Swap front and back buffers */
         glfwSwapBuffers(this->window);
 
         /* Poll for and process events */
         glfwPollEvents();
     }
+    renderer->killImGui();
     glfwTerminate();
 }
