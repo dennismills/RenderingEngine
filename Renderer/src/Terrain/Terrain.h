@@ -3,6 +3,7 @@
 #include <random>
 #include <cmath>
 #include <glm/gtc/noise.hpp>
+
 #include "../Model/Model.h"
 
 class Terrain : public Model
@@ -12,17 +13,31 @@ public:
 	Terrain(const unsigned int width, const unsigned int height, unsigned int& vao);
 
 private:
-	glm::vec2 gradient()
+	void addTerrainVertex(const Vertex& vertex)
 	{
-		std::default_random_engine generator;
-		std::uniform_real_distribution<float> distribution(0.0f, 1.0f);
-		float angle = distribution(generator) * 2 * 3.14159;
-		return glm::vec2(cos(angle), sin(angle));
+		// Ignores Y axis
+		glm::vec2 newPos = glm::vec2(vertex.position.x, vertex.position.z);
+
+		auto it = indexMap.find(newPos);
+		if (it != indexMap.end())
+		{
+			unsigned int index = it->second; // Extract the index for that vertex
+			addIndex(index);
+		}
+		else
+		{
+			addVertex(vertex);
+			unsigned int index = (unsigned int)vertices.size() - 1;
+			addIndex(index);
+			indexMap.insert(std::pair<glm::vec2, unsigned int>(newPos, index));
+		}
 	}
 
 private:
 	unsigned int width, height;
 	unsigned short octaves;
 	float persistance;
+
+	std::unordered_map<glm::vec2, unsigned int> indexMap;
 };
 

@@ -19,6 +19,9 @@ public:
 	void addLight(const Light& light);
 	void setNameMapping(const std::string& key, const std::string& value) { nameMap.insert(std::pair<std::string, std::string>(key, value)); }
 	void fillLightBuffer();
+
+	Light* getLights() { return &lights[0]; }
+
 private:
 	std::unordered_map<std::string, std::string> nameMap;
 	unsigned int lightCount;

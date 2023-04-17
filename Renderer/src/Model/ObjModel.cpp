@@ -96,10 +96,11 @@ ObjModel::ObjModel(const std::string& fileName, unsigned int& vao)
 			{
 				uv = glm::vec2(0.0, 0.0);
 			}
-			add({ vertex, normal, uv });
+			addOBJVertex({ vertex, normal, uv });
 		}
 
 		populateBuffers(vao);
+		clearIndexMap();
 	}
 }
 
