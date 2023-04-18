@@ -2,14 +2,7 @@
 
 VertexBuffer::VertexBuffer(const void* data, unsigned int size)
 {
-	glGenBuffers(1, &id);
-	if (id < 0)
-	{
-		std::cout << "Could not create the VertexBuffer object: id = " << id << std::endl;
-	}
 
-	this->bind();
-	glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 }
 
 VertexBuffer::~VertexBuffer()
