@@ -1,10 +1,5 @@
 #include "Window.h"
 
-std::chrono::system_clock::time_point FPS::startTime;
-std::chrono::system_clock::time_point FPS::currentTime;
-
-long FPS::counter = 0;
-
 void GLAPIENTRY MessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
 {
     fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
@@ -58,12 +53,10 @@ Window::~Window()
 
 void Window::startApplication()
 {
-    FPS::start();
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(this->window))
     {
         renderer->renderFrame();
-        FPS::update();
 
         /* Swap front and back buffers */
         glfwSwapBuffers(this->window);

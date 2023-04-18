@@ -57,5 +57,5 @@ Terrain::Terrain(const unsigned int width, const unsigned int height, unsigned i
         }
     }
 
-    populateBuffers(vao);
+    populateBuffers();
 }

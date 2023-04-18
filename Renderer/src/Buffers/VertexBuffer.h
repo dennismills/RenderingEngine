@@ -12,6 +12,8 @@ public:
 	void unbind();
 	void free();
 
+	unsigned int getID() const { return id; }
+
 private:
 	unsigned int id;
 };

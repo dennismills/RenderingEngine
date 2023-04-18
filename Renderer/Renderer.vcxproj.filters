@@ -57,6 +57,9 @@
     <ClCompile Include="Dependencies\imgui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Model\ModelManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application\Window.h">
@@ -75,9 +78,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Vertex\Vertex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\FPS\FPS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Lighting\Light.h">
@@ -120,6 +120,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Dependencies\imgui\imgui_impl_opengl3_loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Model\ModelManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

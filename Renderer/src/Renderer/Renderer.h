@@ -5,6 +5,7 @@
 #include "../Model/ObjModel.h"
 #include "../Lighting/LightManager.h"
 #include "../Terrain/Terrain.h"
+#include "../Model/ModelManager.h"
 
 #include <GLFW/glfw3.h>
 
@@ -25,14 +26,12 @@ private:
 	void endImGuiFrame();
 
 private:
-	float fov;
 	Shader defaultShader;
-	glm::mat4 modelMatrix, viewMatrix, projectionMatrix, invViewMatrix;
+	glm::mat4 viewMatrix, projectionMatrix, invViewMatrix;
 
 private:
 	LightManager lights;
+	ModelManager models;
 	unsigned int vao;
-	//ObjModel model;
-	Terrain terrain;
 };
 
