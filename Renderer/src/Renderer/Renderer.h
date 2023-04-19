@@ -6,6 +6,7 @@
 #include "../Lighting/LightManager.h"
 #include "../Terrain/Terrain.h"
 #include "../Model/ModelManager.h"
+#include "../Particles/Particle.h"
 
 #include <GLFW/glfw3.h>
 

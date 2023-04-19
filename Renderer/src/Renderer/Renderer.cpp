@@ -41,10 +41,15 @@ Renderer::Renderer(float fov, GLFWwindow* window)
 	terrain.rotate(0.5, glm::vec3(1, 0, 0));
 	terrain.rotate(2.25, glm::vec3(0, 1, 0));
 
+	Model particle = Particle();
+	particle.translate(glm::vec3(4.0, -3.0, -45));
+	particle.scale(glm::vec3(30, 30, 30));
+
 	models.add(terrain);
 
 	models.add(stall);
 	models.add(bunny);
+	models.add(particle);
 	
 	lights.addLight(PointLight(glm::vec3(0.0, -20, -100), glm::vec3(1.0, 0.0, 0.0), glm::vec3(1, 0.09, 0.0000)));
 	lights.addLight(DirectionalLight(glm::vec3(0.0, 50.0, -150), glm::vec3(0.5, 1.0, 1.0)));
@@ -86,7 +91,10 @@ void Renderer::renderFrame()
 
 	for (int i = 0; i < models.size(); ++i)
 	{
-		models[i].rotate(0.01f, glm::vec3(0.0, 1.0f, 0.0f));
+		if (i != 3)
+		{
+			models[i].rotate(0.01f, glm::vec3(0.0, 1.0f, 0.0f));
+		}
 	}
 
 	models.render(defaultShader);

@@ -125,6 +125,9 @@
     <ClInclude Include="src\Model\ModelManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Particles\Particle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ShaderPrograms\main.frag" />

@@ -45,6 +45,7 @@
     <ClInclude Include="Dependencies\imgui\imstb_rectpack.h" />
     <ClInclude Include="Dependencies\imgui\imstb_textedit.h" />
     <ClInclude Include="Dependencies\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\Particles\Particle.h" />
     <ClInclude Include="src\Model\ModelManager.h" />
     <ClInclude Include="src\Lighting\LightManager.h" />
     <ClInclude Include="src\Lighting\Light.h" />
