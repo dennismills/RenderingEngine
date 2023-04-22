@@ -30,29 +30,37 @@ Renderer::Renderer(float fov, GLFWwindow* window)
 
 	models = ModelManager(vao);
 
-	Model bunny = ObjModel("src/assets/stall.obj", vao);
-	bunny.translate(glm::vec3(0, -3, -50));
+	Texture* stallTexture = new Texture("src/assets/textures/stallTexture.png");
+	Texture* allyTexture = new Texture("src/assets/textures/allyAndI.jpg");
 
-	Model stall = ObjModel("src/assets/dragon.obj", vao);
-	stall.translate(glm::vec3(-10, -3, -50));
+	ObjModel* stall = new ObjModel("src/assets/stall.obj", vao);
+	stall->translate(glm::vec3(0, -3, -50));
+	stall->setTexture(stallTexture);
 
-	Model terrain = Terrain(100, 100, vao);
-	terrain.translate(glm::vec3(0, -20, -100));
-	terrain.rotate(0.5, glm::vec3(1, 0, 0));
-	terrain.rotate(2.25, glm::vec3(0, 1, 0));
+	/*ObjModel* dragon = new ObjModel("src/assets/dragon.obj", vao);
+	dragon->translate(glm::vec3(-10, -3, -50));*/
 
-	Model particle = Particle();
-	particle.translate(glm::vec3(4.0, -3.0, -45));
-	particle.scale(glm::vec3(30, 30, 30));
+	Terrain* terrain = new Terrain(100, 100, vao);
+	terrain->translate(glm::vec3(0, -20, -100));
+	terrain->rotate(0.5, glm::vec3(1, 0, 0));
+	terrain->rotate(2.25, glm::vec3(0, 1, 0));
+
+	/*Model* particle = new Particle();
+	particle->setTexture("src/assets/textures/allyAndI.jpg");
+	particle->translate(glm::vec3(4.0, -3.0, -150));
+	particle->scale(glm::vec3(30, 30, 30));*/
 
 	models.add(terrain);
 
 	models.add(stall);
-	models.add(bunny);
-	models.add(particle);
+	//models.add(dragon);
+	//models.add(particle);
 	
 	lights.addLight(PointLight(glm::vec3(0.0, -20, -100), glm::vec3(1.0, 0.0, 0.0), glm::vec3(1, 0.09, 0.0000)));
 	lights.addLight(DirectionalLight(glm::vec3(0.0, 50.0, -150), glm::vec3(0.5, 1.0, 1.0)));
+
+	fParticles = new FireParticleSystem(100, 3, 5000);
+	fParticles->setTexture(allyTexture);
 
 }
 
@@ -81,6 +89,7 @@ void Renderer::renderFrame()
 	
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
 
 	defaultShader.use();
 	defaultShader.setUniformMat4(viewMatrix, "view");
@@ -91,16 +100,18 @@ void Renderer::renderFrame()
 
 	for (int i = 0; i < models.size(); ++i)
 	{
-		if (i != 3)
-		{
-			models[i].rotate(0.01f, glm::vec3(0.0, 1.0f, 0.0f));
-		}
+		defaultShader.setModelProperties(models[i]);
+		models[i].rotate(0.01f, glm::vec3(0.0, 1.0f, 0.0f));
 	}
 
 	models.render(defaultShader);
 
+	fParticles->update();
+	fParticles->render(vao, defaultShader);
+
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
 	Shader::unbind();
 	endImGuiFrame();
 }
@@ -110,4 +121,9 @@ void Renderer::killImGui()
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
+}
+
+Renderer::~Renderer()
+{
+	delete fParticles;
 }

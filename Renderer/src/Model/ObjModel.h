@@ -18,6 +18,8 @@ class ObjModel : public Model
 public:
 	ObjModel() {}
 	ObjModel(const std::string& fileName, unsigned int& vao);
+	void render(GLuint& vao) { defaultRender(vao); }
+
 private:
 	std::vector<std::string> split(const std::string& str, const std::string& delim);
 };

@@ -2,15 +2,20 @@
 
 layout (location = 0) in vec3 pos;
 layout (location = 1) in vec3 normal;
+layout (location = 2) in vec2 uv;
+
 
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 invView;
 uniform mat4 projection;
+uniform float hasTexture;
 
+out vec2 fragUV;
 out vec3 surfaceNormal;
 out vec3 toCameraVector;
 out vec4 fragWorldPosition;
+out float fragHasTexture;
 
 void main()
 {
@@ -18,5 +23,7 @@ void main()
     fragWorldPosition = worldPosition;
     surfaceNormal = (model * vec4(normal, 0.0)).xyz;
     toCameraVector = (invView * vec4(0.0, 0.0, 0.0, 1.0)).xyz - worldPosition.xyz;
+    fragUV = uv;
+    fragHasTexture = hasTexture;
     gl_Position = projection * view * worldPosition;
 }
