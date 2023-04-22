@@ -6,9 +6,10 @@
 #include "../Lighting/LightManager.h"
 #include "../Terrain/Terrain.h"
 #include "../Model/ModelManager.h"
+#include "../Particles/Particle.h"
+#include "../Particles/FireParticleSystem.h"
 
 #include <GLFW/glfw3.h>
-
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
@@ -18,6 +19,7 @@ class Renderer
 {
 public:
 	Renderer(float fov, GLFWwindow* window);
+	~Renderer();
 	void renderFrame();
 	void killImGui();
 
@@ -30,6 +32,7 @@ private:
 	glm::mat4 viewMatrix, projectionMatrix, invViewMatrix;
 
 private:
+	FireParticleSystem* fParticles;
 	LightManager lights;
 	ModelManager models;
 	unsigned int vao;

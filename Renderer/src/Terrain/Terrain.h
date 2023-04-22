@@ -11,7 +11,7 @@ class Terrain : public Model
 public:
 	Terrain() {}
 	Terrain(const unsigned int width, const unsigned int height, unsigned int& vao);
-
+	void render(GLuint& vao) { defaultRender(vao); }
 private:
 	void addTerrainVertex(const Vertex& vertex)
 	{

@@ -29,11 +29,13 @@
     <ClCompile Include="src\Lighting\LightManager.cpp" />
     <ClCompile Include="src\Model\Model.cpp" />
     <ClCompile Include="src\Model\ObjModel.cpp" />
+    <ClCompile Include="src\Particles\FireParticleSystem.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Application\Window.cpp" />
     <ClCompile Include="src\Buffers\VertexBuffer.cpp" />
     <ClCompile Include="src\Terrain\Terrain.cpp" />
+    <ClCompile Include="src\Texture\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dependencies\imgui\imconfig.h" />
@@ -45,18 +47,24 @@
     <ClInclude Include="Dependencies\imgui\imstb_rectpack.h" />
     <ClInclude Include="Dependencies\imgui\imstb_textedit.h" />
     <ClInclude Include="Dependencies\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\Particles\FireParticleSystem.h" />
+    <ClInclude Include="src\Particles\Particle.h" />
     <ClInclude Include="src\Model\ModelManager.h" />
     <ClInclude Include="src\Lighting\LightManager.h" />
     <ClInclude Include="src\Lighting\Light.h" />
     <ClInclude Include="src\Mesh\Mesh.h" />
     <ClInclude Include="src\Model\Model.h" />
     <ClInclude Include="src\Model\ObjModel.h" />
+    <ClInclude Include="src\Particles\ParticleSystem.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Shader\Shader.h" />
     <ClInclude Include="src\Application\Window.h" />
     <ClInclude Include="src\Buffers\VertexBuffer.h" />
+    <ClInclude Include="src\stb_image\stb_image.h" />
+    <ClInclude Include="src\Timer\Timer.h" />
     <ClInclude Include="src\Vertex\Vertex.h" />
     <ClInclude Include="src\Terrain\Terrain.h" />
+    <ClInclude Include="src\Texture\Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ShaderPrograms\Light.vert" />

@@ -4,17 +4,25 @@ ModelManager::ModelManager(unsigned int vao)
 : vao(vao)
 {}
 
-void ModelManager::add(const Model& model)
+ModelManager::~ModelManager()
+{
+	for (auto& model : models)
+	{
+		delete model;
+	}
+}
+
+void ModelManager::add(Model* model)
 {
 	models.push_back(model);
 }
 
 void ModelManager::render(Shader& shader)
 {
-	for (auto& model : models)
+	for (Model* model : models)
 	{
-		model.populateBuffers();
-		shader.setUniformMat4(model.getModelMatrix(), "model");
-		model.render(vao);
+		model->populateBuffers();
+		shader.setUniformMat4(model->getModelMatrix(), "model");
+		model->render(vao);
 	}
 }

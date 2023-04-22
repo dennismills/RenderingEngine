@@ -19,9 +19,14 @@ layout(std140, binding = 0) uniform LightsBlock {
   Light lights[MAX_LIGHTS];
 };
 
+in vec2 fragUV;
 in vec3 surfaceNormal;
 in vec3 toCameraVector;
 in vec4 fragWorldPosition;
+
+in float fragHasTexture;
+
+uniform sampler2D textureData;
 
 out vec4 color;
 
@@ -53,11 +58,11 @@ float computeFalloff(Light l)
 }
 
 void main()
-{           
-    // diffuse
+{
     vec3 directionalColor = vec3(0.0);
     vec3 pointColor = vec3(0.0);
     vec3 spotColor = vec3(0.0);
+    vec3 textureColor = vec3(0.0);
 
     for(int i = 0; i < MAX_LIGHTS; i++)
     {
@@ -97,5 +102,10 @@ void main()
         }
     }
 
-    color = vec4((directionalColor + pointColor + spotColor), 1.0);
+    // Simulate bool since they don't exist
+    if (fragHasTexture > 0.5)
+    {
+        textureColor = texture2D(textureData, fragUV).xyz;
+    }
+    color = vec4((directionalColor + pointColor + spotColor + textureColor), 1.0);
 }

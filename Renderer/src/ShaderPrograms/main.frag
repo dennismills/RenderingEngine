@@ -52,6 +52,7 @@ void main()
 {
     vec3 directionalTotalColor = vec3(0.0, 0.0, 0.0);
     vec3 pointTotalColor = vec3(0.0, 0.0, 0.0);
+    vec3 textureColor = vec3(0.0, 0.0, 0.0);
 
     for (int i = 0; i < numLights; i++)
     {

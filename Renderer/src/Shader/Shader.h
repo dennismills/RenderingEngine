@@ -7,6 +7,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "../Lighting/LightManager.h"
+#include "../Model/Model.h"
 
 #define makeArray(str, index) (str + "[" + std::to_string(index) + "]")
 
@@ -92,6 +93,10 @@ public:
 			assert(false);
 		}
 		glUniformBlockBinding(programID, lightBlockIndex, manager.getBindingIndex());
+	}
+	void setModelProperties(const Model& model)
+	{
+		setUniformFloat((float)model.textured(), "hasTexture");
 	}
 private:
 	void writePreprocessedShaderToFile(std::string fileName, std::string source)

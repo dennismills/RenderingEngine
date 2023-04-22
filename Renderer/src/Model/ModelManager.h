@@ -9,14 +9,15 @@ class ModelManager
 public:
 	ModelManager() {}
 	ModelManager(unsigned int vao);
-	void add(const Model& model);
+	~ModelManager();
+	void add(Model* model);
 	void render(Shader& shader);
 
 	const unsigned int size() const { return models.size(); }
-	Model& operator[](unsigned int index) { return models[index]; }
+	Model& operator[](unsigned int index) { return *models[index]; }
 
 private:
-	std::vector<Model> models;
+	std::vector<Model*> models;
 	unsigned int vao;
 };
 

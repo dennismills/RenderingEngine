@@ -91,6 +91,13 @@ ObjModel::ObjModel(const std::string& fileName, unsigned int& vao)
 			{
 				unsigned int uvIndex = uvIndices[i];
 				uv = tempUVs[uvIndex - 1];
+
+				// Blender uses a different UV coordinate system than OpenGL
+				// so I do 1 - uv.y to convert it to the OpenGL
+				// system so it gets rendered properly.
+
+				// TODO: Add a way to detect inverted UV coords and only invert when needed
+				uv = glm::vec2(uv.x, 1.0 - uv.y);
 			}
 			else
 			{
