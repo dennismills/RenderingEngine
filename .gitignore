@@ -8,6 +8,14 @@
 *.suo
 *.user
 *.userosscache
+*.sln
+
+include/GLFW
+lib-vc2022
+
+*vcxproj*
+*.ini
+
 *.sln.docstates
 
 # User-specific files (MonoDevelop/Xamarin Studio)
