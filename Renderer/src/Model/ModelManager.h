@@ -3,6 +3,7 @@
 #include "../Shader/Shader.h"
 
 #include <vector>
+#include <algorithm>
 
 class ModelManager
 {

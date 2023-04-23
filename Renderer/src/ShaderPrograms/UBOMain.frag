@@ -62,7 +62,18 @@ void main()
     vec3 directionalColor = vec3(0.0);
     vec3 pointColor = vec3(0.0);
     vec3 spotColor = vec3(0.0);
-    vec3 textureColor = vec3(0.0);
+    vec4 textureColor = vec4(0.0);
+    
+    // Simulate bool since they don't exist
+    if (fragHasTexture > 0.5)
+    {
+        textureColor = texture2D(textureData, fragUV);
+    }
+
+    if (textureColor.a < 0.2)
+    {
+        discard;
+    }
 
     for(int i = 0; i < MAX_LIGHTS; i++)
     {
@@ -102,10 +113,10 @@ void main()
         }
     }
 
-    // Simulate bool since they don't exist
-    if (fragHasTexture > 0.5)
+
+    color = vec4((directionalColor + pointColor + spotColor), 0.0) + textureColor;
+    if (color.a < 0.2)
     {
-        textureColor = texture2D(textureData, fragUV).xyz;
+        discard;
     }
-    color = vec4((directionalColor + pointColor + spotColor + textureColor), 1.0);
 }

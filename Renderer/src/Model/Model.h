@@ -15,7 +15,7 @@ public:
 	virtual void render(GLuint& vao) = 0;
 
 	const bool textured() const { return hasTexture && texture->getPixels() != nullptr; }
-
+	Texture* getTexture() const { return texture; }
 
 protected:
 	void defaultRender(GLuint& vao)

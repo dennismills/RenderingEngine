@@ -149,6 +149,15 @@
     <ClInclude Include="src\Texture\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Model\BatchModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Random\Random.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\JsonUtils\JsonUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ShaderPrograms\main.frag" />
@@ -156,6 +165,7 @@
     <None Include="src\ShaderPrograms\Light.vert" />
     <None Include="src\ShaderPrograms\UBOMain.vert" />
     <None Include="src\ShaderPrograms\UBOMain.frag" />
+    <None Include="src\assets\particleSystems\FireParticleSystem.json" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="src\assets\heart.obj" />
