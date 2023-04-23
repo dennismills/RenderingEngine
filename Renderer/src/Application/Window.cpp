@@ -13,6 +13,7 @@ Window::Window(std::string title, std::size_t width, std::size_t height)
 	width(width),
 	height(height)
 {
+    Random::seed(time(NULL));
     /* Initialize the library */
     if (!glfwInit())
     {

@@ -38,6 +38,8 @@
     <ClCompile Include="src\Texture\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\JsonUtils\JsonUtils.h" />
+    <ClInclude Include="src\Model\BatchModel.h" />
     <ClInclude Include="Dependencies\imgui\imconfig.h" />
     <ClInclude Include="Dependencies\imgui\imgui.h" />
     <ClInclude Include="Dependencies\imgui\imgui_impl_glfw.h" />
@@ -56,6 +58,7 @@
     <ClInclude Include="src\Model\Model.h" />
     <ClInclude Include="src\Model\ObjModel.h" />
     <ClInclude Include="src\Particles\ParticleSystem.h" />
+    <ClInclude Include="src\Random\Random.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Shader\Shader.h" />
     <ClInclude Include="src\Application\Window.h" />
@@ -67,6 +70,7 @@
     <ClInclude Include="src\Texture\Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\assets\particleSystems\FireParticleSystem.json" />
     <None Include="src\ShaderPrograms\Light.vert" />
     <None Include="src\ShaderPrograms\main.frag" />
     <None Include="src\ShaderPrograms\main.vert" />
@@ -163,7 +167,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Renderer\Dependencies\glfw\include;$(SolutionDir)Renderer\Dependencies\glew\include;$(SolutionDir)Renderer\Dependencies\glm\;$(SolutionDir)Renderer\Dependencies\imgui</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Renderer\Dependencies\glfw\include;$(SolutionDir)Renderer\Dependencies\glew\include;$(SolutionDir)Renderer\Dependencies\glm\;$(SolutionDir)Renderer\Dependencies\imgui;$(SolutionDir)Renderer\Dependencies\nlohmann</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -180,7 +186,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Renderer\Dependencies\glfw\include;$(SolutionDir)Renderer\Dependencies\glew\include;$(SolutionDir)Renderer\Dependencies\glm\;$(SolutionDir)Renderer\Dependencies\imgui</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Renderer\Dependencies\glfw\include;$(SolutionDir)Renderer\Dependencies\glew\include;$(SolutionDir)Renderer\Dependencies\glm\;$(SolutionDir)Renderer\Dependencies\imgui;$(SolutionDir)Renderer\Dependencies\nlohmann</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -197,7 +204,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Renderer\Dependencies\glfw\include;$(SolutionDir)Renderer\Dependencies\glew\include;$(SolutionDir)Renderer\Dependencies\glm\;$(SolutionDir)Renderer\Dependencies\imgui</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Renderer\Dependencies\glfw\include;$(SolutionDir)Renderer\Dependencies\glew\include;$(SolutionDir)Renderer\Dependencies\glm\;$(SolutionDir)Renderer\Dependencies\imgui;$(SolutionDir)Renderer\Dependencies\nlohmann</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -214,7 +223,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Renderer\Dependencies\glfw\include;$(SolutionDir)Renderer\Dependencies\glew\include;$(SolutionDir)Renderer\Dependencies\glm\;$(SolutionDir)Renderer\Dependencies\imgui</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Renderer\Dependencies\glfw\include;$(SolutionDir)Renderer\Dependencies\glew\include;$(SolutionDir)Renderer\Dependencies\glm\;$(SolutionDir)Renderer\Dependencies\imgui;$(SolutionDir)Renderer\Dependencies\nlohmann</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -228,4 +238,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

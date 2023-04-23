@@ -15,11 +15,12 @@ void Model::setTexture(Texture* texture)
 
 void Model::rotate(float theta, const glm::vec3& axis)
 {
-	modelMatrix = glm::rotate(modelMatrix, theta, axis);
+	modelMatrix = glm::rotate(modelMatrix, glm::radians(theta), axis);
 }
 
 void Model::translate(const glm::vec3& amount)
 {
+	position += amount;
 	modelMatrix = glm::translate(modelMatrix, amount);
 }
 

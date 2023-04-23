@@ -31,7 +31,6 @@ Renderer::Renderer(float fov, GLFWwindow* window)
 	models = ModelManager(vao);
 
 	Texture* stallTexture = new Texture("src/assets/textures/stallTexture.png");
-	Texture* allyTexture = new Texture("src/assets/textures/allyAndI.jpg");
 
 	ObjModel* stall = new ObjModel("src/assets/stall.obj", vao);
 	stall->translate(glm::vec3(0, -3, -50));
@@ -45,23 +44,17 @@ Renderer::Renderer(float fov, GLFWwindow* window)
 	terrain->rotate(0.5, glm::vec3(1, 0, 0));
 	terrain->rotate(2.25, glm::vec3(0, 1, 0));
 
-	/*Model* particle = new Particle();
-	particle->setTexture("src/assets/textures/allyAndI.jpg");
-	particle->translate(glm::vec3(4.0, -3.0, -150));
-	particle->scale(glm::vec3(30, 30, 30));*/
-
 	models.add(terrain);
 
 	models.add(stall);
 	//models.add(dragon);
-	//models.add(particle);
 	
 	lights.addLight(PointLight(glm::vec3(0.0, -20, -100), glm::vec3(1.0, 0.0, 0.0), glm::vec3(1, 0.09, 0.0000)));
 	lights.addLight(DirectionalLight(glm::vec3(0.0, 50.0, -150), glm::vec3(0.5, 1.0, 1.0)));
 
-	fParticles = new FireParticleSystem(100, 3, 5000);
-	fParticles->setTexture(allyTexture);
-
+	fParticles = new FireParticleSystem();
+	fParticles->loadFromConfig("src/assets/particleSystems/FireParticleSystem.json");
+	models.add(fParticles->getModel());
 }
 
 void Renderer::startImGuiFrame()
@@ -79,6 +72,8 @@ void Renderer::endImGuiFrame()
 
 void Renderer::renderFrame()
 {
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	startImGuiFrame();
 	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	ImGui::SliderFloat("X", (float*) & lights[0].position.x, -50, 50);
@@ -98,22 +93,26 @@ void Renderer::renderFrame()
 	defaultShader.setUBO(lights, "LightsBlock");
 	lights.fillLightBuffer();
 
+	fParticles->update();
+	fParticles->render(vao, defaultShader);
+
 	for (int i = 0; i < models.size(); ++i)
 	{
 		defaultShader.setModelProperties(models[i]);
-		models[i].rotate(0.01f, glm::vec3(0.0, 1.0f, 0.0f));
+		if (i != 2)
+		{
+			models[i].rotate(0.5f, glm::vec3(0.0, 1.0f, 0.0f));
+		}
 	}
 
 	models.render(defaultShader);
-
-	fParticles->update();
-	fParticles->render(vao, defaultShader);
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
 	Shader::unbind();
 	endImGuiFrame();
+	glDisable(GL_BLEND);
 }
 
 void Renderer::killImGui()

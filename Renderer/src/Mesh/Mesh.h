@@ -15,6 +15,7 @@ class Mesh
 public:
 	Mesh()
 	{
+		position = glm::vec3(0.0);
 		modelMatrix = glm::mat4(1.0);
 
 		glGenBuffers(1, &vbo);
@@ -58,24 +59,30 @@ public:
 
 	void populateBuffers()
 	{
-		bindVBO();
-		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices.front(), GL_STATIC_DRAW);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)Vertex::VERTEX_POS);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)Vertex::NORMAL_POS);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)Vertex::UV_POS);
+		if (vertices.size() > 0)
+		{
+			bindVBO();
+			glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices.front(), GL_STATIC_DRAW);
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position));
+			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
+			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, uv));
 
-		bindIBO();
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices.front(), GL_STATIC_DRAW);
+			bindIBO();
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices.front(), GL_STATIC_DRAW);
+		}
 	}
 	void clearIndexMap() { indexMap.clear(); }
 
+	glm::vec3 getPosition() const { return position; }
 	const glm::mat4& getModelMatrix() const { return modelMatrix; }
+	std::vector<Vertex> getVertices() const { return vertices; }
 
 private:
 	std::unordered_map<glm::vec3, unsigned int> indexMap;
 	unsigned int ibo;
 	unsigned int vbo;
 protected:
+	glm::vec3 position;
 	glm::mat4 modelMatrix;
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
