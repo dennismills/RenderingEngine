@@ -3,7 +3,8 @@
 
 Renderer::Renderer(float fov, GLFWwindow* window)
 {
-
+	oldWidth = 0;
+	oldHeight = 0;
 	this->window = window;
 	IMGUI_CHECKVERSION();
 	ImGuiContext* imGuiContext = ImGui::CreateContext();
@@ -74,6 +75,15 @@ void Renderer::endImGuiFrame()
 
 void Renderer::update()
 {
+	int w, h;
+	glfwGetWindowSize(window, &w, &h);
+	if (w != oldWidth || oldHeight != oldHeight)
+	{
+		projectionMatrix = glm::perspective(glm::radians(45.0f), (float)w / (float)h, 0.1f, 1000.0f);
+		oldWidth = w;
+		oldHeight = h;
+	}
+
 	camera.update(window);
 	invViewMatrix = glm::inverse(camera.getViewMatrix());
 }

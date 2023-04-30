@@ -6,7 +6,7 @@ Camera::Camera(const glm::vec3& position, const glm::vec3& target)
 	this->target = target;
 	this->firstMouse = false;
 	this->yaw = -90.0f;
-	this->pitch = 0.0f;
+	this->pitch = 3.0f;
 
 	viewMatrix = glm::mat4(1.0);
 	cameraDirection = glm::normalize(position - target);
@@ -54,6 +54,7 @@ void Camera::update(GLFWwindow* window)
 	yoffset *= sensitivity;
 
 	yaw += xoffset;
+
 	pitch += yoffset;
 
 	if (pitch > 89.0f)
@@ -68,5 +69,4 @@ void Camera::update(GLFWwindow* window)
 	target = glm::normalize(direction);
 
 	viewMatrix = glm::lookAt(position, position + target, up);
-		
 }

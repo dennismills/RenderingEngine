@@ -28,11 +28,13 @@ public:
 private:
 	void startImGuiFrame();
 	void endImGuiFrame();
+	void composeEngineUIFrame(); // For engine UI debugging
 
 private:
 	Shader defaultShader;
 	glm::mat4 projectionMatrix, invViewMatrix;
 	unsigned int vao;
+	unsigned int oldWidth, oldHeight;
 	GLFWwindow* window;
 
 private:

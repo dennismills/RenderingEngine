@@ -25,7 +25,16 @@ Window::Window(std::string title, int width, int height)
     }
 
     /* Create a windowed mode window and its OpenGL context */
-    this->window = glfwCreateWindow(this->width, this->height, this->title.c_str(), NULL, NULL);
+    if (width < 0 || height < 0)
+    {
+        glfwWindowHint(GLFW_MAXIMIZED, GL_TRUE);
+        this->window = glfwCreateWindow(1, 1, this->title.c_str(), glfwGetPrimaryMonitor(), NULL);
+    }
+    else
+    {
+        this->window = glfwCreateWindow(width, height, this->title.c_str(), NULL, NULL);
+    }
+    
     glfwSetWindowSize(window, width, height);
     if (!this->window)
     {
@@ -48,8 +57,19 @@ Window::Window(std::string title, int width, int height)
 
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     glfwSetCursorPosCallback(window, Mouse::mouseCallback);
-    renderer = new Renderer((float)width / (float)height, window);
+    float fov = (float)width / (float)height;
+    if (width < 0 || height < 0)
+    {
+        int w, h;
+        glfwGetWindowSize(window, &w, &h);
+        fov = (float)w / (float)h;
+    }
+    renderer = new Renderer(fov, window);
 
+    glfwSetWindowSizeCallback(window, [](GLFWwindow* window, int width, int height)
+    {
+        glViewport(0, 0, width, height);
+    });
 }
 
 Window::~Window()
