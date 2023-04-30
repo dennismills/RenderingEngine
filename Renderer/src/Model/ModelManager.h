@@ -11,14 +11,14 @@ public:
 	ModelManager() {}
 	ModelManager(unsigned int vao);
 	~ModelManager();
-	void add(Model* model);
+	void add(std::shared_ptr<Model> model);
 	void render(Shader& shader);
 
-	const unsigned int size() const { return models.size(); }
+	const unsigned int size() const { return (unsigned int)models.size(); }
 	Model& operator[](unsigned int index) { return *models[index]; }
 
 private:
-	std::vector<Model*> models;
+	std::vector<std::shared_ptr<Model>> models;
 	unsigned int vao;
 };
 

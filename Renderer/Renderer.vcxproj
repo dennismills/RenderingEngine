@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Camera\Camera.cpp" />
     <ClCompile Include="Dependencies\imgui\imgui.cpp" />
     <ClCompile Include="Dependencies\imgui\imgui_draw.cpp" />
     <ClCompile Include="Dependencies\imgui\imgui_impl_glfw.cpp" />
@@ -38,6 +39,7 @@
     <ClCompile Include="src\Texture\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Camera\Camera.h" />
     <ClInclude Include="src\JsonUtils\JsonUtils.h" />
     <ClInclude Include="src\Model\BatchModel.h" />
     <ClInclude Include="Dependencies\imgui\imconfig.h" />
@@ -49,6 +51,7 @@
     <ClInclude Include="Dependencies\imgui\imstb_rectpack.h" />
     <ClInclude Include="Dependencies\imgui\imstb_textedit.h" />
     <ClInclude Include="Dependencies\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\Mouse\Mouse.h" />
     <ClInclude Include="src\Particles\FireParticleSystem.h" />
     <ClInclude Include="src\Particles\Particle.h" />
     <ClInclude Include="src\Model\ModelManager.h" />

@@ -1,6 +1,7 @@
 #pragma once
 #include <cassert>
 #include <string>
+#include <memory>
 #include <gl/glew.h>
 
 #include "../stb_image/stb_image.h"
@@ -11,13 +12,13 @@ public:
 	Texture() {}
 	Texture(const std::string& fileName);
 	Texture(const Texture& texture);
-	~Texture() { printf("Called \n"); }
+	~Texture() { }
 
 	Texture operator=(Texture rhs);
 
 	void bind();
 
-	const unsigned char* getPixels() const { return pixels; }
+	const std::shared_ptr<unsigned char[]> getPixels() const { return pixels; }
 	const int getWidth() const { return width; }
 	const int getHeight() const { return height; }
 	const int getChannels() const { return channels; }
@@ -26,6 +27,6 @@ public:
 private:
 	GLuint textureID;
 	int width, height, channels;
-	unsigned char* pixels;
+	std::shared_ptr<unsigned char[]> pixels;
 };
 

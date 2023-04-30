@@ -5,7 +5,14 @@
 class Particle : public Model
 {
 public:
-	Particle() {}
+	Particle()
+	{
+		startTime = 0;
+		alive = false;
+		hasStarted = false;
+		timeToLive = 0;
+	}
+
 	Particle(long ttl)
 	{
 		// TL, BL, BR      BR, TR, TL
@@ -22,7 +29,7 @@ public:
 		alive = true;
 		hasStarted = false;
 
-		startTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
+		startTime = (long)std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
 	}
 
 	void render(GLuint& vao)
