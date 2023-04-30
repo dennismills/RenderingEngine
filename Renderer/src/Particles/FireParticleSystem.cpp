@@ -5,7 +5,7 @@ FireParticleSystem::FireParticleSystem(long count, float spawnRate, long ttl)
 	this->maxParticles = count;
 	this->spawnRate = spawnRate;
 	this->ttl = ttl;
-	batch = new BatchModel<Particle>();
+	batch = std::make_shared<BatchModel<Particle>>();
 }
 
 void FireParticleSystem::render(GLuint& vao, Shader& shader)

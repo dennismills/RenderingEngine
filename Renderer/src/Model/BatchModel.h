@@ -42,7 +42,5 @@ public:
 			}
 		}
 	}
-
-private:
 };
 

@@ -8,6 +8,7 @@
 #include "../Model/ModelManager.h"
 #include "../Particles/Particle.h"
 #include "../Particles/FireParticleSystem.h"
+#include "../Camera/Camera.h"
 
 #include <GLFW/glfw3.h>
 #include <imgui.h>
@@ -21,6 +22,7 @@ public:
 	Renderer(float fov, GLFWwindow* window);
 	~Renderer();
 	void renderFrame();
+	void update(); // TODO: Introduce delta time to the update function
 	void killImGui();
 
 private:
@@ -29,12 +31,14 @@ private:
 
 private:
 	Shader defaultShader;
-	glm::mat4 viewMatrix, projectionMatrix, invViewMatrix;
+	glm::mat4 projectionMatrix, invViewMatrix;
+	unsigned int vao;
+	GLFWwindow* window;
 
 private:
+	Camera camera;
 	FireParticleSystem* fParticles;
 	LightManager lights;
 	ModelManager models;
-	unsigned int vao;
 };
 

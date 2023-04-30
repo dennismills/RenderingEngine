@@ -4,18 +4,19 @@
 #include <GLFW/glfw3.h>
 #include "../Renderer/Renderer.h"
 #include "../Random/Random.h"
+#include "../Mouse/Mouse.h"
 
 class Window
 {
 public:
-	Window(std::string title, std::size_t width, std::size_t height);
+	Window(std::string title, int width, int height);
 	~Window();
 	void startApplication();
 
 private:
 	std::string title;
-	std::size_t width;
-	std::size_t height;
+	int width;
+	int height;
 
 private:
 	GLFWwindow* window;

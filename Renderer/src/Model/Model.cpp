@@ -8,7 +8,7 @@ Model::Model()
 	hasTexture = false;
 }
 
-void Model::setTexture(Texture* texture)
+void Model::setTexture(std::shared_ptr<Texture> texture)
 {
 	this->texture = texture;
 }

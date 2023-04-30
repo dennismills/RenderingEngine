@@ -10,7 +10,7 @@ class ParticleSystem
 {
 public:
 	ParticleSystem() {}
-	void setTexture(Texture* texture)
+	void setTexture(std::shared_ptr<Texture> texture)
 	{
 		if (batch == nullptr)
 		{
@@ -39,11 +39,11 @@ public:
 		ttl = config["ttl"];
 		spawnRate = config["spawnRate"];
 
-		batch = new BatchModel<Particle>();
+		batch = std::shared_ptr<BatchModel<Particle>>();
 
 		if (config.find("textureSrc") != config.end())
 		{
-			setTexture(new Texture(config["textureSrc"]));
+			setTexture(std::shared_ptr<Texture>(new Texture(config["textureSrc"])));
 		}
 	}
 
@@ -63,7 +63,7 @@ public:
 		maxScale = max;
 	}
 
-	BatchModel<Particle>* getModel() { return batch; }
+	std::shared_ptr<BatchModel<Particle>> getModel() { return batch; }
 
 protected:
 	long maxParticles;
@@ -80,5 +80,5 @@ protected:
 	glm::vec3 minRot, maxRot;
 
 	Timer spawnTimer;
-	BatchModel<Particle>* batch;
+	std::shared_ptr<BatchModel<Particle>> batch;
 };

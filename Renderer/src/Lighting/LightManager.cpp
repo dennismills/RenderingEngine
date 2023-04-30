@@ -24,7 +24,7 @@ const Light& LightManager::operator[](unsigned int index)
 void LightManager::addLight(const Light& light)
 {
 	assert(lightCount < MAX_LIGHTS);
-	assert(sizeof(Light) % 16 == 0);// Forces it to be 16 byte aligned for compliance with GLSL UBOs
+	assert(sizeof(Light) % 16 == 0); // Forces it to be 16 byte aligned for compliance with GLSL UBOs
 	lights[lightCount] = light;
 	++lightCount;
 }

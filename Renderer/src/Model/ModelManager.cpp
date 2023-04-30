@@ -5,21 +5,16 @@ ModelManager::ModelManager(unsigned int vao)
 {}
 
 ModelManager::~ModelManager()
-{
-	for (auto& model : models)
-	{
-		delete model;
-	}
-}
+{}
 
-void ModelManager::add(Model* model)
+void ModelManager::add(std::shared_ptr<Model> model)
 {
 	models.push_back(model);
 }
 
 void ModelManager::render(Shader& shader)
 {
-	for (Model* model : models)
+	for (auto model : models)
 	{
 		model->populateBuffers();
 		shader.setUniformMat4(model->getModelMatrix(), "model");
