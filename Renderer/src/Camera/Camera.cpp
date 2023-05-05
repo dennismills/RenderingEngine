@@ -9,12 +9,7 @@ Camera::Camera(const glm::vec3& position, const glm::vec3& target)
 	this->pitch = 3.0f;
 
 	viewMatrix = glm::mat4(1.0);
-	cameraDirection = glm::normalize(position - target);
-
 	up = glm::vec3(0.0, 1.0, 0.0);
-	glm::vec3 cameraRight = glm::normalize(glm::cross(up, cameraDirection));
-	glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
-	viewMatrix = glm::lookAt(position, target, up);
 }
 
 void Camera::update(GLFWwindow* window)
@@ -37,36 +32,40 @@ void Camera::update(GLFWwindow* window)
 		position += glm::normalize(glm::cross(target, up)) * cameraSpeed;
 	}
 
-	if (firstMouse)
+	if (!Mouse::isLeftPressed())
 	{
 		lastX = Mouse::getX();
 		lastY = Mouse::getY();
 		firstMouse = false;
 	}
 
-	double xoffset = Mouse::getX() - lastX;
-	double yoffset = lastY - Mouse::getY();
-	lastX = Mouse::getX();
-	lastY = Mouse::getY();
+	// Only moves the camera when the left button is pressed down
+	if (Mouse::isLeftPressed())
+	{
+		double xoffset = Mouse::getX() - lastX;
+		double yoffset = lastY - Mouse::getY();
+		lastX = Mouse::getX();
+		lastY = Mouse::getY();
 
-	double sensitivity = 0.25f;
-	xoffset *= sensitivity;
-	yoffset *= sensitivity;
+		double sensitivity = 0.05f;
+		xoffset *= sensitivity;
+		yoffset *= sensitivity;
 
-	yaw += xoffset;
+		yaw -= xoffset;
+		pitch -= yoffset;
 
-	pitch += yoffset;
+		if (pitch > 89.0f)
+			pitch = 89.0f;
+		if (pitch < -89.0f)
+			pitch = -89.0f;
 
-	if (pitch > 89.0f)
-		pitch = 89.0f;
-	if (pitch < -89.0f)
-		pitch = -89.0f;
+		glm::vec3 direction;
+		direction.x = (double)cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+		direction.y = (double)sin(glm::radians(pitch));
+		direction.z = (double)sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+		target = glm::normalize(direction);
+	}
 
-	glm::vec3 direction;
-	direction.x = (double)cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	direction.y = (double)sin(glm::radians(pitch));
-	direction.z = (double)sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	target = glm::normalize(direction);
-
+	// This needs to go outside of the loop so we can still use WASD to move around
 	viewMatrix = glm::lookAt(position, position + target, up);
 }

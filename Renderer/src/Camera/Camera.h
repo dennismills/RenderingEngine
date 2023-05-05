@@ -10,7 +10,6 @@ class Camera
 public:
 	Camera()
 	{
-		cameraDirection = glm::vec3(0.0);
 		position = glm::vec3(0.0);
 		target = glm::vec3(0.0);
 		up = glm::vec3(0.0);
@@ -32,7 +31,6 @@ private:
 	bool firstMouse;
 
 private:
-	glm::vec3 cameraDirection;
 	glm::vec3 position;
 	glm::vec3 target;
 	glm::vec3 up;

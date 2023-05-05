@@ -3,6 +3,11 @@
 
 double Mouse::x = 0;
 double Mouse::y = 0;
+bool Mouse::leftClicked = false;
+
+bool Log::showLog = true;
+std::string Log::text = "";
+
 void GLAPIENTRY MessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
 {
     fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
@@ -57,6 +62,8 @@ Window::Window(std::string title, int width, int height)
 
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     glfwSetCursorPosCallback(window, Mouse::mouseCallback);
+    glfwSetMouseButtonCallback(window, Mouse::mouseButtonCallback);
+
     float fov = (float)width / (float)height;
     if (width < 0 || height < 0)
     {

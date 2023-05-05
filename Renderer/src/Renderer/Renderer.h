@@ -9,6 +9,8 @@
 #include "../Particles/Particle.h"
 #include "../Particles/FireParticleSystem.h"
 #include "../Camera/Camera.h"
+#include "../EngineUI/EngineUI.h"
+#include "../EngineUI/EngineViewport.h"
 
 #include <GLFW/glfw3.h>
 #include <imgui.h>
@@ -26,6 +28,11 @@ public:
 	void killImGui();
 
 private:
+	void initImGui();
+	void initOpenGL();
+	void initModels();
+	void initLights();
+
 	void startImGuiFrame();
 	void endImGuiFrame();
 	void composeEngineUIFrame(); // For engine UI debugging
@@ -42,5 +49,7 @@ private:
 	FireParticleSystem* fParticles;
 	LightManager lights;
 	ModelManager models;
+	EngineViewport viewport;
+	EngineUI engineUI;
 };
 
