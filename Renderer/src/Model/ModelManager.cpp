@@ -18,6 +18,7 @@ void ModelManager::render(Shader& shader)
 	{
 		model->populateBuffers();
 		shader.setUniformMat4(model->getModelMatrix(), "model");
+		shader.setModelProperties(*model);
 		model->render(vao);
 	}
 }

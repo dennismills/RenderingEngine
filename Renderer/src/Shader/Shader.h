@@ -97,6 +97,10 @@ public:
 	void setModelProperties(const Model& model)
 	{
 		setUniformFloat((float)model.textured(), "hasTexture");
+		setUniformVec3(model.getMaterial().ambient, "modelAmbient");
+		setUniformVec3(model.getMaterial().diffuse, "modelDiffuse");
+		setUniformVec3(model.getMaterial().specular, "modelSpecular");
+		setUniformFloat(model.getMaterial().shininess, "modelShininess");
 	}
 private:
 	void writePreprocessedShaderToFile(std::string fileName, std::string source)

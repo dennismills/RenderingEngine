@@ -8,6 +8,11 @@ Model::Model()
 	hasTexture = false;
 }
 
+void Model::setMaterial(const Material& material)
+{
+	this->material = material;
+}
+
 void Model::setTexture(std::shared_ptr<Texture> texture)
 {
 	this->texture = texture;

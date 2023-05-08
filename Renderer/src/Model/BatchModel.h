@@ -12,6 +12,11 @@ public:
 		printf("Batch deleted\n");
 	}
 
+	void serialize()
+	{
+		setName("Batch Model");
+	}
+
 	void render(GLuint& vao)
 	{
 		if (vertices.size() > 0 && indices.size() > 0)
@@ -41,6 +46,11 @@ public:
 				addOBJVertex(newVertex);
 			}
 		}
+	}
+
+	void populateUI()
+	{
+		printf("Called from batch\n");
 	}
 };
 

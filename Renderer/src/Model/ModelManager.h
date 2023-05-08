@@ -15,7 +15,7 @@ public:
 	void render(Shader& shader);
 
 	const unsigned int size() const { return (unsigned int)models.size(); }
-	Model& operator[](unsigned int index) { return *models[index]; }
+	std::shared_ptr<Model> operator[](unsigned int index) { return models[index]; }
 
 private:
 	std::vector<std::shared_ptr<Model>> models;

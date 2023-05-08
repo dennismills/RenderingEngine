@@ -12,7 +12,6 @@ public:
 		hasStarted = false;
 		timeToLive = 0;
 	}
-
 	Particle(long ttl)
 	{
 		// TL, BL, BR      BR, TR, TL
@@ -30,6 +29,15 @@ public:
 		hasStarted = false;
 
 		startTime = (long)std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
+	}
+
+	void serialize()
+	{
+		setName("Particle");
+	}
+	void populateUI()
+	{
+		printf("Particle UI\n");
 	}
 
 	void render(GLuint& vao)

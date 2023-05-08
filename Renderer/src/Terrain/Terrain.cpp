@@ -59,3 +59,8 @@ Terrain::Terrain(const unsigned int width, const unsigned int height, unsigned i
 
     populateBuffers();
 }
+
+void Terrain::populateUI()
+{
+    printf("Terrain called\n");
+}

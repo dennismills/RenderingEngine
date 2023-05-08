@@ -124,3 +124,33 @@ std::vector<std::string> ObjModel::split(const std::string& str, const std::stri
 	}
 	return output;
 }
+
+void ObjModel::populateUI()
+{
+	bool transformationTreeNode = ImGui::TreeNodeEx("Transformation",
+		ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth,
+		"Transformation");
+
+	if (transformationTreeNode)
+	{
+		// modelMatrix[3] is the position glm::vec3 in the matrix. We pass address 0 of that vector
+		ImGui::SliderFloat3("Translation", &modelMatrix[3][0], -300, 300);
+		ImGui::TreePop();
+	}
+
+
+
+	bool materialTreeNode = ImGui::TreeNodeEx("Material Properties",
+		 ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth,
+		"Material"
+	);
+
+	if (materialTreeNode)
+	{
+		ImGui::SliderFloat("Shininess", &material.shininess, 0.5, 8);
+		ImGui::ColorPicker3("Ambient", &material.ambient[0]);
+		ImGui::ColorPicker3("Diffuse", &material.diffuse[0]);
+		ImGui::ColorPicker3("Specular", &material.specular[0]);
+		ImGui::TreePop();
+	}
+}

@@ -39,11 +39,15 @@
     <ClCompile Include="src\Texture\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Bounds\BoundingRect.h" />
     <ClInclude Include="src\Camera\Camera.h" />
     <ClInclude Include="src\EngineUI\EngineUI.h" />
     <ClInclude Include="src\EngineUI\EngineViewport.h" />
     <ClInclude Include="src\EngineUI\Log.h" />
+    <ClInclude Include="src\EngineUI\SceneEditor.h" />
+    <ClInclude Include="src\GameObject\GameObject.h" />
     <ClInclude Include="src\JsonUtils\JsonUtils.h" />
+    <ClInclude Include="src\Material\Material.h" />
     <ClInclude Include="src\Model\BatchModel.h" />
     <ClInclude Include="Dependencies\imgui\imconfig.h" />
     <ClInclude Include="Dependencies\imgui\imgui.h" />

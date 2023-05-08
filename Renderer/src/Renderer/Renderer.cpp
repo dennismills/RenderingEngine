@@ -59,14 +59,20 @@ void Renderer::initModels()
 	std::shared_ptr<Model> stall = std::shared_ptr<Model>(new ObjModel("src/assets/stall.obj", vao));
 	stall->translate(glm::vec3(0, -3, -50));
 	stall->setTexture(stallTexture);
+	stall->setMaterial({ glm::vec3(0.1, 0.1, 0.1), glm::vec3(0.5, 0.5, 0.5), glm::vec3(1.0, 1.0, 1.0), 4 });
 
 	std::shared_ptr<Model> terrain = std::shared_ptr<Model>(new Terrain(100, 100, vao));
 	terrain->translate(glm::vec3(0, -20, -100));
 	terrain->rotate(0.5, glm::vec3(1, 0, 0));
 	terrain->rotate(2.25, glm::vec3(0, 1, 0));
+	terrain->setMaterial({ glm::vec3(0.1, 0.1, 0.1), glm::vec3(0.5, 0.5, 0.5), glm::vec3(1.0, 1.0, 1.0), 4 });
 
 	models.add(terrain);
 	models.add(stall);
+	for (int i = 0; i < models.size(); ++i)
+	{
+		engineUI.addToSceneEditor(models[i].get());
+	}
 }
 
 void Renderer::initLights()
@@ -168,9 +174,9 @@ void Renderer::renderFrame()
 
 		for (unsigned int i = 0; i < models.size(); ++i)
 		{
-			defaultShader.setModelProperties(models[i]);
-			models[i].rotate(0.5, glm::vec3(0.0, 1.0, 0.0));
+			models[i]->rotate(0.5, glm::vec3(0.0, 1.0, 0.0));
 		}
+
 		models.render(defaultShader);
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);

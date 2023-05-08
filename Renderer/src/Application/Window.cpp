@@ -4,6 +4,7 @@
 double Mouse::x = 0;
 double Mouse::y = 0;
 bool Mouse::leftClicked = false;
+std::unordered_map<std::string, BoundingRect> Mouse::rects;
 
 bool Log::showLog = true;
 std::string Log::text = "";
