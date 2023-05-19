@@ -7,11 +7,13 @@ public:
 	FireParticleSystem() {}
 	~FireParticleSystem() 
 	{
-		printf("Destroying fire particle system\n");
 		particles.clear();
 	}
 	FireParticleSystem(long count, float spawnRate, long ttl);
+	
+	void serialize() { setName("FireParticleSystem"); }
 	void render(GLuint& vao, Shader& shader);
 	void update();
 	void spawn();
+	void populateUI();
 };

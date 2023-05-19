@@ -67,8 +67,14 @@ void Renderer::initModels()
 	terrain->rotate(2.25, glm::vec3(0, 1, 0));
 	terrain->setMaterial({ glm::vec3(0.1, 0.1, 0.1), glm::vec3(0.5, 0.5, 0.5), glm::vec3(1.0, 1.0, 1.0), 4 });
 
+	fParticles = FireParticleSystem();
+	fParticles.loadFromConfig("src/assets/particleSystems/fireParticleSystem.json");
+
 	models.add(terrain);
 	models.add(stall);
+
+	engineUI.addToSceneEditor(&fParticles);
+
 	for (int i = 0; i < models.size(); ++i)
 	{
 		engineUI.addToSceneEditor(models[i].get());
@@ -117,7 +123,7 @@ void Renderer::update()
 		oldWidth = w;
 		oldHeight = h;
 	}
-
+	fParticles.update();
 	camera.update(window);
 	invViewMatrix = glm::inverse(camera.getViewMatrix());
 }
@@ -177,6 +183,7 @@ void Renderer::renderFrame()
 			models[i]->rotate(0.5, glm::vec3(0.0, 1.0, 0.0));
 		}
 
+		fParticles.render(vao, defaultShader);
 		models.render(defaultShader);
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
@@ -195,6 +202,4 @@ void Renderer::killImGui()
 }
 
 Renderer::~Renderer()
-{
-	delete fParticles;
-}
+{}

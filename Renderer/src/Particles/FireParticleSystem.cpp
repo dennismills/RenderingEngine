@@ -54,7 +54,7 @@ void FireParticleSystem::spawn()
 	
 	for (int i = 0; i < spawnRate; ++i)
 	{
-		Particle p(3000);
+		Particle p(ttl);
 
 		glm::vec3 position = glm::vec3
 		(
@@ -83,4 +83,9 @@ void FireParticleSystem::spawn()
 		p.setTTL(this->ttl);
 		particles.push_back(p);
 	}
+}
+
+void FireParticleSystem::populateUI()
+{
+
 }

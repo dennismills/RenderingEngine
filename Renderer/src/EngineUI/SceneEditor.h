@@ -38,8 +38,11 @@ public:
 		}
 		ImGui::End();
 	}
-	void add(std::shared_ptr<GameObject> obj) { objs.push_back(obj); }
+	void add(GameObject* obj) { objs.push_back(obj); }
 
 private:
-	std::vector<std::shared_ptr<GameObject>> objs;
+	
+	// We do not delete the GameObjects because they are in use elsewhere
+	// (like ModelManager)
+	std::vector<GameObject*> objs;
 };

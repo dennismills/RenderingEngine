@@ -3,6 +3,7 @@
 #include <random>
 #include <cmath>
 #include <glm/gtc/noise.hpp>
+#include <imgui.h>
 
 #include "../Model/Model.h"
 

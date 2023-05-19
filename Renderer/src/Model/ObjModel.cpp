@@ -128,7 +128,7 @@ std::vector<std::string> ObjModel::split(const std::string& str, const std::stri
 void ObjModel::populateUI()
 {
 	bool transformationTreeNode = ImGui::TreeNodeEx("Transformation",
-		ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth,
+		ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth,
 		"Transformation");
 
 	if (transformationTreeNode)
@@ -141,7 +141,7 @@ void ObjModel::populateUI()
 
 
 	bool materialTreeNode = ImGui::TreeNodeEx("Material Properties",
-		 ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth,
+		ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth,
 		"Material"
 	);
 

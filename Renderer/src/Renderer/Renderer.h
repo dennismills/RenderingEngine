@@ -46,7 +46,7 @@ private:
 
 private:
 	Camera camera;
-	FireParticleSystem* fParticles;
+	FireParticleSystem fParticles;
 	LightManager lights;
 	ModelManager models;
 	EngineViewport viewport;

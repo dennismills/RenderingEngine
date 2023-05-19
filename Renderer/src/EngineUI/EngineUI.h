@@ -29,7 +29,7 @@ public:
 	void addToSceneEditor(GameObject* obj)
 	{
 		obj->serialize();
-		sceneEditor.add(std::shared_ptr<GameObject>(obj));
+		sceneEditor.add(obj);
 	}
 
 private:

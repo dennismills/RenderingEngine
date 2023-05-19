@@ -6,7 +6,7 @@
 #include "../nlohmann/json.hpp"
 #include  "../JsonUtils/JsonUtils.h"
 
-class ParticleSystem
+class ParticleSystem : public GameObject
 {
 public:
 	ParticleSystem() {}
@@ -39,7 +39,7 @@ public:
 		ttl = config["ttl"];
 		spawnRate = config["spawnRate"];
 
-		batch = std::shared_ptr<BatchModel<Particle>>();
+		batch = std::shared_ptr<BatchModel<Particle>>(new BatchModel<Particle>());
 
 		if (config.find("textureSrc") != config.end())
 		{
@@ -62,6 +62,8 @@ public:
 		minScale = min;
 		maxScale = max;
 	}
+
+	int size() const { return particles.size(); }
 
 	std::shared_ptr<BatchModel<Particle>> getModel() { return batch; }
 
