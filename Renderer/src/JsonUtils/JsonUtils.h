@@ -14,5 +14,13 @@ public:
 		return output;
 	}
 
+	static glm::vec2 vectorToVec2(std::vector<float> vec)
+	{
+		assert(vec.size() >= 2);
+		if (vec.size() > 2) { printf("Vector has size > 2. Values will be truncated.\n"); }
+		glm::vec2 output(vec[0], vec[1]);
+		return output;
+	}
+
 private:
 };

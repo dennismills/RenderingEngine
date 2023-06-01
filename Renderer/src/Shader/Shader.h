@@ -107,8 +107,7 @@ private:
 	{
 		std::size_t rFindSlashIndex = fileName.rfind("/");
 		std::string fName = fileName.substr(rFindSlashIndex + 1);
-		std::string prefix = fileName.substr(0, rFindSlashIndex);
-		std::string outputFileName = prefix + "/Preprocessed/" + fName;
+		std::string outputFileName = "src/ShaderPrograms/Preprocessed/" + fName;
 		std::ofstream outputShader(outputFileName);
 		
 		if (!outputShader)
@@ -190,6 +189,7 @@ private:
 	}
 	glint getID(glint prog, std::string name)
 	{
+		use();
 		glint loc = glGetUniformLocation(prog, name.c_str());
 		if (loc < 0)
 		{

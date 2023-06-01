@@ -13,7 +13,7 @@ Terrain::Terrain(const unsigned int width, const unsigned int height, unsigned i
     float stepsizeX = (float)width / vertsX;
     float stepsizeZ = (float)height / vertsZ;
 
-    float frequency = 0.01589f; // adjust this to change the frequency of the Perlin noise
+    float frequency = 0.04589f; // adjust this to change the frequency of the Perlin noise
     float amplitude = 25.0f; // adjust this to change the amplitude of the Perlin noise
 
 

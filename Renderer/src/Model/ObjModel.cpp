@@ -12,6 +12,8 @@ ObjModel::ObjModel(const std::string& fileName, unsigned int& vao)
 
 		std::vector<int> vertexIndices, uvIndices, normalIndices;
 
+		bool hasUVCoords = false;
+
 		std::string temp;
 		while (std::getline(file, temp))
 		{
@@ -49,7 +51,7 @@ ObjModel::ObjModel(const std::string& fileName, unsigned int& vao)
 					std::vector<std::string> subTokens = split(tokens[i], "/");
 					if (subTokens.size() == 3)
 					{
-						hasTexture = true;
+						hasUVCoords = true;
 						vertIndex = std::stoi(subTokens[0]);
 						uvIndex = std::stoi(subTokens[1]);
 						normalIndex = std::stoi(subTokens[2]);
@@ -87,7 +89,7 @@ ObjModel::ObjModel(const std::string& fileName, unsigned int& vao)
 
 			glm::vec2 uv;
 
-			if (hasTexture)
+			if (hasUVCoords)
 			{
 				unsigned int uvIndex = uvIndices[i];
 				uv = tempUVs[uvIndex - 1];

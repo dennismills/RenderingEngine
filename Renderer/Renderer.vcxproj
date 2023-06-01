@@ -30,7 +30,6 @@
     <ClCompile Include="src\Lighting\LightManager.cpp" />
     <ClCompile Include="src\Model\Model.cpp" />
     <ClCompile Include="src\Model\ObjModel.cpp" />
-    <ClCompile Include="src\Particles\FireParticleSystem.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Application\Window.cpp" />
@@ -44,7 +43,9 @@
     <ClInclude Include="src\EngineUI\EngineUI.h" />
     <ClInclude Include="src\EngineUI\EngineViewport.h" />
     <ClInclude Include="src\EngineUI\Log.h" />
+    <ClInclude Include="src\EngineUI\MenuBar.h" />
     <ClInclude Include="src\EngineUI\SceneEditor.h" />
+    <ClInclude Include="src\EngineUI\TextEditor.h" />
     <ClInclude Include="src\GameObject\GameObject.h" />
     <ClInclude Include="src\JsonUtils\JsonUtils.h" />
     <ClInclude Include="src\Material\Material.h" />
@@ -59,7 +60,6 @@
     <ClInclude Include="Dependencies\imgui\imstb_textedit.h" />
     <ClInclude Include="Dependencies\imgui\imstb_truetype.h" />
     <ClInclude Include="src\Mouse\Mouse.h" />
-    <ClInclude Include="src\Particles\FireParticleSystem.h" />
     <ClInclude Include="src\Particles\Particle.h" />
     <ClInclude Include="src\Model\ModelManager.h" />
     <ClInclude Include="src\Lighting\LightManager.h" />
@@ -84,6 +84,8 @@
     <None Include="src\ShaderPrograms\Light.vert" />
     <None Include="src\ShaderPrograms\main.frag" />
     <None Include="src\ShaderPrograms\main.vert" />
+    <None Include="src\ShaderPrograms\particles\particleMain.frag" />
+    <None Include="src\ShaderPrograms\particles\particleMain.vert" />
     <None Include="src\ShaderPrograms\UBOMain.frag" />
     <None Include="src\ShaderPrograms\UBOMain.vert" />
   </ItemGroup>

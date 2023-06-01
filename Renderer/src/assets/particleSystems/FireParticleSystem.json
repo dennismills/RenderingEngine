@@ -1,14 +1,16 @@
 {
-  "textureSrc": "src/assets/textures/fireParticle.png",
-  "minPosition": [ -5, -40, -35 ],
-  "maxPosition": [ 5, -38.5, -30 ],
+  "textureSrc": "src/assets/textures/particleSpritesheet.png",
+  "textureSize": [ 1024, 1024 ],
+  "cellSize": [64, 64],
+  "minPosition": [ -20, -40, -100 ],
+  "maxPosition": [ 20, -20, -90 ],
   "minScale": [ 100, 200, 100 ],
   "maxScale": [ 200, 200.1, 100.01 ],
   "minRotation": [],
   "maxRotation": [],
   "minTranslationPerFrame": [ -0.01, 0.05, -0.01 ],
   "maxTranslationPerFrame": [  0.01,  0.1,  0.01 ],
-  "maxParticles": 1000,
+  "maxParticles": 25000,
   "ttl": 5000,
-  "spawnRate": 2
+  "spawnRate": 1
 }

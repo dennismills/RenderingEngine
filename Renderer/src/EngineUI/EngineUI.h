@@ -4,6 +4,8 @@
 #include "../Timer/Timer.h"
 #include "Log.h"
 #include "SceneEditor.h"
+#include "TextEditor.h"
+#include "MenuBar.h"
 
 class EngineUI
 {
@@ -11,6 +13,14 @@ public:
 	EngineUI()
 	{}
 
+	void createMenuBar()
+	{
+		menuBar.create();
+	}
+	void createTextEditor()
+	{
+		textEditor.create();
+	}
 	void createLog()
 	{
 		Log::create();
@@ -35,4 +45,6 @@ public:
 private:
 	Timer timer;
 	SceneEditor sceneEditor;
+	TextEditor textEditor;
+	MenuBar menuBar;
 };

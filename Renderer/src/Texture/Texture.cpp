@@ -79,4 +79,8 @@ void Texture::bind()
 		}
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
+	else
+	{
+		printf("Cannot bind texture\n");
+	}
 }

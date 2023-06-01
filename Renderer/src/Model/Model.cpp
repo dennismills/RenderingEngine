@@ -15,6 +15,7 @@ void Model::setMaterial(const Material& material)
 
 void Model::setTexture(std::shared_ptr<Texture> texture)
 {
+	hasTexture = true;
 	this->texture = texture;
 }
 
