@@ -6,8 +6,7 @@
 #include "../Lighting/LightManager.h"
 #include "../Terrain/Terrain.h"
 #include "../Model/ModelManager.h"
-#include "../Particles/Particle.h"
-#include "../Particles/FireParticleSystem.h"
+#include "../Particles/ParticleSystem.h"
 #include "../Camera/Camera.h"
 #include "../EngineUI/EngineUI.h"
 #include "../EngineUI/EngineViewport.h"
@@ -24,7 +23,7 @@ public:
 	Renderer(float fov, GLFWwindow* window);
 	~Renderer();
 	void renderFrame();
-	void update(); // TODO: Introduce delta time to the update function
+	void update(float dt);
 	void killImGui();
 
 private:
@@ -38,7 +37,7 @@ private:
 	void composeEngineUIFrame(); // For engine UI debugging
 
 private:
-	Shader defaultShader;
+	Shader defaultShader, particleShader;
 	glm::mat4 projectionMatrix, invViewMatrix;
 	unsigned int vao;
 	unsigned int oldWidth, oldHeight;
@@ -46,10 +45,11 @@ private:
 
 private:
 	Camera camera;
-	FireParticleSystem* fParticles;
 	LightManager lights;
 	ModelManager models;
 	EngineViewport viewport;
 	EngineUI engineUI;
+
+	//ParticleSystem ps;
 };
 

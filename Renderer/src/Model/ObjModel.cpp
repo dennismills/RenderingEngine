@@ -12,6 +12,8 @@ ObjModel::ObjModel(const std::string& fileName, unsigned int& vao)
 
 		std::vector<int> vertexIndices, uvIndices, normalIndices;
 
+		bool hasUVCoords = false;
+
 		std::string temp;
 		while (std::getline(file, temp))
 		{
@@ -49,7 +51,7 @@ ObjModel::ObjModel(const std::string& fileName, unsigned int& vao)
 					std::vector<std::string> subTokens = split(tokens[i], "/");
 					if (subTokens.size() == 3)
 					{
-						hasTexture = true;
+						hasUVCoords = true;
 						vertIndex = std::stoi(subTokens[0]);
 						uvIndex = std::stoi(subTokens[1]);
 						normalIndex = std::stoi(subTokens[2]);
@@ -87,7 +89,7 @@ ObjModel::ObjModel(const std::string& fileName, unsigned int& vao)
 
 			glm::vec2 uv;
 
-			if (hasTexture)
+			if (hasUVCoords)
 			{
 				unsigned int uvIndex = uvIndices[i];
 				uv = tempUVs[uvIndex - 1];
@@ -123,4 +125,34 @@ std::vector<std::string> ObjModel::split(const std::string& str, const std::stri
 		token = strtok(nullptr, delim.c_str());
 	}
 	return output;
+}
+
+void ObjModel::populateUI()
+{
+	bool transformationTreeNode = ImGui::TreeNodeEx("Transformation",
+		ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth,
+		"Transformation");
+
+	if (transformationTreeNode)
+	{
+		// modelMatrix[3] is the position glm::vec3 in the matrix. We pass address 0 of that vector
+		ImGui::SliderFloat3("Translation", &modelMatrix[3][0], -300, 300);
+		ImGui::TreePop();
+	}
+
+
+
+	bool materialTreeNode = ImGui::TreeNodeEx("Material Properties",
+		ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth,
+		"Material"
+	);
+
+	if (materialTreeNode)
+	{
+		ImGui::SliderFloat("Shininess", &material.shininess, 0.5, 8);
+		ImGui::ColorPicker3("Ambient", &material.ambient[0]);
+		ImGui::ColorPicker3("Diffuse", &material.diffuse[0]);
+		ImGui::ColorPicker3("Specular", &material.specular[0]);
+		ImGui::TreePop();
+	}
 }

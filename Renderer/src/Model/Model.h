@@ -2,19 +2,23 @@
 
 #include <memory>
 #include <glm/gtc/matrix_transform.hpp>
+
 #include "../Mesh/Mesh.h"
 #include "../Texture/Texture.h"
+#include "../Material/Material.h"
 
 class Model : public Mesh
 {
 public:
 	Model();
+	void setMaterial(const Material& material);
 	void setTexture(std::shared_ptr<Texture> texture);
 	void rotate(float theta, const glm::vec3& axis);
 	void translate(const glm::vec3& amount);
 	void scale(const glm::vec3& dim);
 	virtual void render(GLuint& vao) = 0;
 
+	const Material& getMaterial() const { return material; }
 	const bool textured() const { return hasTexture && texture->getPixels() != nullptr; }
 	std::shared_ptr<Texture> getTexture() const { return texture; }
 
@@ -41,6 +45,7 @@ protected:
 	}
 
 protected:
+	Material material;
 	std::shared_ptr<Texture> texture;
 	bool hasTexture;
 };

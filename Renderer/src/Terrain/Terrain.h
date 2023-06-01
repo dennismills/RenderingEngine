@@ -3,6 +3,7 @@
 #include <random>
 #include <cmath>
 #include <glm/gtc/noise.hpp>
+#include <imgui.h>
 
 #include "../Model/Model.h"
 
@@ -11,6 +12,12 @@ class Terrain : public Model
 public:
 	Terrain() {}
 	Terrain(const unsigned int width, const unsigned int height, unsigned int& vao);
+	void serialize()
+	{
+		setName("Terrain");
+	}
+	void populateUI();
+
 	void render(GLuint& vao) { defaultRender(vao); }
 private:
 	void addTerrainVertex(const Vertex& vertex)

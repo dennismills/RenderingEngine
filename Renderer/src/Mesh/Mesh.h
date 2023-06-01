@@ -8,9 +8,10 @@
 
 #include "../Buffers/VertexBuffer.h"
 #include "../Vertex/Vertex.h"
+#include "../GameObject/GameObject.h"
 
 
-class Mesh
+class Mesh : public GameObject
 {
 public:
 	Mesh()

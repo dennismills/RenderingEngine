@@ -4,9 +4,10 @@
 double Mouse::x = 0;
 double Mouse::y = 0;
 bool Mouse::leftClicked = false;
+std::unordered_map<std::string, BoundingRect> Mouse::rects;
 
 bool Log::showLog = true;
-std::string Log::text = "";
+std::vector<std::string> Log::text;
 
 void GLAPIENTRY MessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
 {
@@ -86,11 +87,18 @@ Window::~Window()
 
 void Window::startApplication()
 {
+    std::chrono::steady_clock::time_point previousTime = std::chrono::steady_clock::now();
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(this->window))
     {
-        renderer->update();
+        std::chrono::steady_clock::time_point currentTime = std::chrono::steady_clock::now();
+        std::chrono::duration<float> deltaTime = currentTime - previousTime;
+
+        float dt = deltaTime.count() * 1000; // dt is in milliseconds now
+        renderer->update(dt);
         renderer->renderFrame();
+
+        previousTime = currentTime;
 
         /* Swap front and back buffers */
         glfwSwapBuffers(this->window);

@@ -11,11 +11,21 @@ uniform mat4 invView;
 uniform mat4 projection;
 uniform float hasTexture;
 
+uniform vec3 modelAmbient;
+uniform vec3 modelDiffuse;
+uniform vec3 modelSpecular;
+uniform float modelShininess;
+
 out vec2 fragUV;
 out vec3 surfaceNormal;
 out vec3 toCameraVector;
 out vec4 fragWorldPosition;
 out float fragHasTexture;
+
+out vec3 fragModelAmbient;
+out vec3 fragModelDiffuse;
+out vec3 fragModelSpecular;
+out float fragModelShininess;
 
 void main()
 {
@@ -25,5 +35,11 @@ void main()
     toCameraVector = (invView * vec4(0.0, 0.0, 0.0, 1.0)).xyz - worldPosition.xyz;
     fragUV = uv;
     fragHasTexture = hasTexture;
+
+    fragModelAmbient = modelAmbient;
+    fragModelDiffuse = modelDiffuse;
+    fragModelSpecular = modelSpecular;
+    fragModelShininess = modelShininess;
+
     gl_Position = projection * view * worldPosition;
 }

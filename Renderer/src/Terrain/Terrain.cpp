@@ -13,7 +13,7 @@ Terrain::Terrain(const unsigned int width, const unsigned int height, unsigned i
     float stepsizeX = (float)width / vertsX;
     float stepsizeZ = (float)height / vertsZ;
 
-    float frequency = 0.01589f; // adjust this to change the frequency of the Perlin noise
+    float frequency = 0.04589f; // adjust this to change the frequency of the Perlin noise
     float amplitude = 25.0f; // adjust this to change the amplitude of the Perlin noise
 
 
@@ -58,4 +58,34 @@ Terrain::Terrain(const unsigned int width, const unsigned int height, unsigned i
     }
 
     populateBuffers();
+}
+
+void Terrain::populateUI()
+{
+    bool transformationTreeNode = ImGui::TreeNodeEx("Transformation",
+        ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth,
+        "Transformation");
+
+    if (transformationTreeNode)
+    {
+        // modelMatrix[3] is the position glm::vec3 in the matrix. We pass address 0 of that vector
+        ImGui::SliderFloat3("Translation", &modelMatrix[3][0], -300, 300);
+        ImGui::TreePop();
+    }
+
+
+
+    bool materialTreeNode = ImGui::TreeNodeEx("Material Properties",
+       ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth,
+        "Material"
+    );
+
+    if (materialTreeNode)
+    {
+        ImGui::SliderFloat("Shininess", &material.shininess, 0.5, 8);
+        ImGui::ColorPicker3("Ambient", &material.ambient[0]);
+        ImGui::ColorPicker3("Diffuse", &material.diffuse[0]);
+        ImGui::ColorPicker3("Specular", &material.specular[0]);
+        ImGui::TreePop();
+    }
 }

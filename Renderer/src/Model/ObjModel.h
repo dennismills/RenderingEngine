@@ -9,6 +9,7 @@
 
 #include <glm/glm.hpp>
 #include <GL/glew.h>
+#include <imgui.h>
 
 // TODO:
 //	Add support for detecting and correcting when vertices are in the wrong order
@@ -19,7 +20,8 @@ public:
 	ObjModel() {}
 	ObjModel(const std::string& fileName, unsigned int& vao);
 	void render(GLuint& vao) { defaultRender(vao); }
-
+	void serialize() { setName("ObjModel"); }
+	void populateUI();
 private:
 	std::vector<std::string> split(const std::string& str, const std::string& delim);
 };

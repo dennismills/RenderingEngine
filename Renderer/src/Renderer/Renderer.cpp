@@ -12,6 +12,7 @@ Renderer::Renderer(float fov, GLFWwindow* window)
 	camera = Camera(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, -1.0));
 
 	defaultShader = Shader("src/ShaderPrograms/UBOMain.vert", "src/ShaderPrograms/UBOMain.frag");
+	particleShader = Shader("src/ShaderPrograms/particles/particleMain.vert", "src/ShaderPrograms/particles/particleMain.frag");
 
 	initOpenGL(); // Initializes the VAO we need to create the model manager
 
@@ -59,14 +60,23 @@ void Renderer::initModels()
 	std::shared_ptr<Model> stall = std::shared_ptr<Model>(new ObjModel("src/assets/stall.obj", vao));
 	stall->translate(glm::vec3(0, -3, -50));
 	stall->setTexture(stallTexture);
+	stall->setMaterial({ glm::vec3(0.1, 0.1, 0.1), glm::vec3(0.5, 0.5, 0.5), glm::vec3(1.0, 1.0, 1.0), 4 });
 
-	std::shared_ptr<Model> terrain = std::shared_ptr<Model>(new Terrain(100, 100, vao));
+	std::shared_ptr<Model> terrain = std::shared_ptr<Model>(new Terrain(500, 500, vao));
 	terrain->translate(glm::vec3(0, -20, -100));
 	terrain->rotate(0.5, glm::vec3(1, 0, 0));
 	terrain->rotate(2.25, glm::vec3(0, 1, 0));
+	terrain->setMaterial({ glm::vec3(0.1, 0.1, 0.1), glm::vec3(0.5, 0.5, 0.5), glm::vec3(1.0, 1.0, 1.0), 4 });
 
 	models.add(terrain);
 	models.add(stall);
+
+	for (int i = 0; i < models.size(); ++i)
+	{
+		engineUI.addToSceneEditor(models[i].get());
+	}
+
+	/*ps.loadFromConfig("src/assets/particleSystems/FireParticleSystem.json");*/
 }
 
 void Renderer::initLights()
@@ -101,7 +111,7 @@ void Renderer::endImGuiFrame()
 #endif
 }
 
-void Renderer::update()
+void Renderer::update(float dt)
 {
 	int w, h;
 	glfwGetWindowSize(window, &w, &h);
@@ -111,9 +121,10 @@ void Renderer::update()
 		oldWidth = w;
 		oldHeight = h;
 	}
-
 	camera.update(window);
 	invViewMatrix = glm::inverse(camera.getViewMatrix());
+
+	//ps.update(dt, camera);
 }
 
 void Renderer::composeEngineUIFrame()
@@ -135,8 +146,10 @@ void Renderer::composeEngineUIFrame()
 	ImGui::DockSpace(ImGui::GetID("Dockspace"), ImVec2(0, 0));
 	ImGui::End();
 
+	engineUI.createMenuBar();
 	engineUI.createLog();
 	engineUI.createSceneEditor();
+	engineUI.createTextEditor();
 
 	viewport.initBuffers();
 #endif
@@ -154,6 +167,15 @@ void Renderer::renderFrame()
 		glClearColor(0.25f, 0.0f, 0.75f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		/*particleShader.setUniformMat4(camera.getViewMatrix(), "view");
+		particleShader.setUniformMat4(projectionMatrix, "projection");
+
+		ps.render(particleShader);*/
+
+		glBindVertexArray(vao);
 
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
@@ -168,9 +190,9 @@ void Renderer::renderFrame()
 
 		for (unsigned int i = 0; i < models.size(); ++i)
 		{
-			defaultShader.setModelProperties(models[i]);
-			models[i].rotate(0.5, glm::vec3(0.0, 1.0, 0.0));
+			models[i]->rotate(0.5, glm::vec3(0.0, 1.0, 0.0));
 		}
+
 		models.render(defaultShader);
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
@@ -189,6 +211,4 @@ void Renderer::killImGui()
 }
 
 Renderer::~Renderer()
-{
-	delete fParticles;
-}
+{}

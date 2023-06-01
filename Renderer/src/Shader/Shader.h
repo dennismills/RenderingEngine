@@ -97,14 +97,17 @@ public:
 	void setModelProperties(const Model& model)
 	{
 		setUniformFloat((float)model.textured(), "hasTexture");
+		setUniformVec3(model.getMaterial().ambient, "modelAmbient");
+		setUniformVec3(model.getMaterial().diffuse, "modelDiffuse");
+		setUniformVec3(model.getMaterial().specular, "modelSpecular");
+		setUniformFloat(model.getMaterial().shininess, "modelShininess");
 	}
 private:
 	void writePreprocessedShaderToFile(std::string fileName, std::string source)
 	{
 		std::size_t rFindSlashIndex = fileName.rfind("/");
 		std::string fName = fileName.substr(rFindSlashIndex + 1);
-		std::string prefix = fileName.substr(0, rFindSlashIndex);
-		std::string outputFileName = prefix + "/Preprocessed/" + fName;
+		std::string outputFileName = "src/ShaderPrograms/Preprocessed/" + fName;
 		std::ofstream outputShader(outputFileName);
 		
 		if (!outputShader)
@@ -186,6 +189,7 @@ private:
 	}
 	glint getID(glint prog, std::string name)
 	{
+		use();
 		glint loc = glGetUniformLocation(prog, name.c_str());
 		if (loc < 0)
 		{

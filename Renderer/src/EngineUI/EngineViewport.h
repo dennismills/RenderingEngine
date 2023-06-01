@@ -44,9 +44,12 @@ public:
 	{
 		bool t = true;
 		ImGui::Begin("Viewport");
-		ImVec2 size(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
+		ImVec2 startOfWindow = ImGui::GetCursorPos();
+		ImVec2 rectMin = ImGui::GetItemRectMin();
+		ImVec2 rectMax = ImGui::GetWindowSize();
+		rectMax.y -= ImGui::GetTextLineHeight() * 3;
 		ImTextureID texID = (void*)(intptr_t)tex;
-		ImGui::Image(texID, size, ImVec2(0, 1), ImVec2(1, 0));
+		ImGui::Image(texID, rectMax, ImVec2(0, 1), ImVec2(1, 0));
 		ImGui::End();
 	}
 	void unbindBuffers() { glBindFramebuffer(GL_FRAMEBUFFER, 0); }
