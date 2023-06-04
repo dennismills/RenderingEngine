@@ -121,9 +121,11 @@ void Renderer::update(float dt)
 		oldWidth = w;
 		oldHeight = h;
 	}
+
 	camera.update(window);
 	invViewMatrix = glm::inverse(camera.getViewMatrix());
 
+	engineUI.relayKeyPresses(window);
 	//ps.update(dt, camera);
 }
 
@@ -150,6 +152,7 @@ void Renderer::composeEngineUIFrame()
 	engineUI.createLog();
 	engineUI.createSceneEditor();
 	engineUI.createTextEditor();
+	engineUI.createFileTreeExplorer();
 
 	viewport.initBuffers();
 #endif

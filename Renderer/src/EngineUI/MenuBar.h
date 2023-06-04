@@ -14,7 +14,20 @@ public:
 			ImVec2 rectMin = ImGui::GetItemRectMin();
 			ImVec2 rectMax = ImGui::GetWindowSize();
 			Mouse::addBoundingRect("MenuBar", BoundingRect(rectMin.x, rectMin.y, rectMax.x, rectMax.y));
+			if (ImGui::BeginMenu("View"))
+			{
+				std::string textEditorName = "Text Editor" + (TextEditor::isTextEditorOpen() ? std::string("\t[OPEN]") : std::string(""));
+				if (ImGui::MenuItem(textEditorName.c_str()))
+				{
+					TextEditor::setTextEditorOpen(!TextEditor::isTextEditorOpen());
+				}
+
+				ImGui::EndMenu();
+			}
+
 			ImGui::EndMainMenuBar();
 		}
 	}
+
+private:
 };

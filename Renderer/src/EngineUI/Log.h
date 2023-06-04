@@ -20,8 +20,21 @@ public:
 			ImGui::TextWrapped("%s", message.c_str());
 		}
 
-		// Set the scroll position to the bottom to display the latest log
-		ImGui::SetScrollHereY(1.0f);
+		// Check if the user has scrolled up
+		if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
+		{
+			forceScroll = true;
+		}
+		else
+		{
+			forceScroll = false;
+		}
+
+		// Set the scroll position to the bottom if desired
+		if (forceScroll)
+		{
+			ImGui::SetScrollHereY(1.0f);
+		}
 
 		ImGui::EndChild();
 		ImGui::End();
@@ -30,7 +43,8 @@ public:
 	// TODO: Add better logging support with colors for the logging mode
 	static void log(const std::string& msg)
 	{
-		text.push_back(msg);;
+		text.push_back(msg);
+
 	}
 
 	static void clear()
@@ -40,5 +54,6 @@ public:
 
 private:
 	static bool showLog;
+	static bool forceScroll;
 	static std::vector<std::string> text;
 };

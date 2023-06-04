@@ -1,9 +1,11 @@
 #pragma once
+
+#include "../EngineUI/EngineViewport.h"
+#include "../Mouse/Mouse.h"
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <GLFW/glfw3.h>
-
-#include "../Mouse/Mouse.h"
 
 class Camera
 {
