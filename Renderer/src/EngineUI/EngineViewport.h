@@ -3,13 +3,15 @@
 #include <imgui.h>
 #include <GL/glew.h>
 
+#include <stdexcept>
+
 class EngineViewport
 {
 public:
 	EngineViewport()
 	{
-
 	}
+
 	void initBuffers()
 	{
 		glGenFramebuffers(1, &fbo);
@@ -34,12 +36,13 @@ public:
 
 		// Check for framebuffer completeness
 		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		{
 			throw std::runtime_error("Framebuffer not complete");
+		}
 
 		// Render to the FBO
 		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 	}
-
 	void render()
 	{
 		bool t = true;
@@ -50,6 +53,14 @@ public:
 		rectMax.y -= ImGui::GetTextLineHeight() * 3;
 		ImTextureID texID = (void*)(intptr_t)tex;
 		ImGui::Image(texID, rectMax, ImVec2(0, 1), ImVec2(1, 0));
+		if (ImGui::IsWindowFocused())
+		{
+			hasFocus = true;
+		}
+		else
+		{
+			hasFocus = false;
+		}
 		ImGui::End();
 	}
 	void unbindBuffers() { glBindFramebuffer(GL_FRAMEBUFFER, 0); }
@@ -59,6 +70,9 @@ public:
 		glDeleteRenderbuffers(1, &rbo);
 		glDeleteFramebuffers(1, &fbo);
 	}
+
+	static bool isFocused() { return hasFocus; }
 private:
 	GLuint fbo, tex, rbo;
+	static bool hasFocus;
 };

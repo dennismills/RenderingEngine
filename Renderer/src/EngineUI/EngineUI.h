@@ -6,6 +6,7 @@
 #include "SceneEditor.h"
 #include "TextEditor.h"
 #include "MenuBar.h"
+#include "FileTree.h"
 
 class EngineUI
 {
@@ -17,9 +18,16 @@ public:
 	{
 		menuBar.create();
 	}
+	void createFileTreeExplorer()
+	{
+		fileTree.create("D:/OpenGL/Renderer/Renderer/src");
+	}
 	void createTextEditor()
 	{
-		textEditor.create();
+		if (textEditor.isTextEditorOpen())
+		{
+			textEditor.create();
+		}
 	}
 	void createLog()
 	{
@@ -42,9 +50,17 @@ public:
 		sceneEditor.add(obj);
 	}
 
+	void relayKeyPresses(GLFWwindow* window)
+	{
+		if (textEditor.isTextEditorOpen())
+		{
+			textEditor.checkKeyPresses(window);
+		}
+	}
 private:
 	Timer timer;
 	SceneEditor sceneEditor;
 	TextEditor textEditor;
+	FileTree fileTree;
 	MenuBar menuBar;
 };

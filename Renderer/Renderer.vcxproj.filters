@@ -188,6 +188,9 @@
     <ClInclude Include="src\EngineUI\MenuBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\EngineUI\FileTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\ShaderPrograms\main.frag" />

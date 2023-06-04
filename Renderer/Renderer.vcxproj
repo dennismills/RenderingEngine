@@ -42,6 +42,7 @@
     <ClInclude Include="src\Camera\Camera.h" />
     <ClInclude Include="src\EngineUI\EngineUI.h" />
     <ClInclude Include="src\EngineUI\EngineViewport.h" />
+    <ClInclude Include="src\EngineUI\FileTree.h" />
     <ClInclude Include="src\EngineUI\Log.h" />
     <ClInclude Include="src\EngineUI\MenuBar.h" />
     <ClInclude Include="src\EngineUI\SceneEditor.h" />
@@ -177,7 +178,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;_SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Renderer\Dependencies\glfw\include;$(SolutionDir)Renderer\Dependencies\glew\include;$(SolutionDir)Renderer\Dependencies\glm\;$(SolutionDir)Renderer\Dependencies\imgui\;$(SolutionDir)Renderer\Dependencies\nlohmann</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
@@ -196,7 +197,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;_SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Renderer\Dependencies\glfw\include;$(SolutionDir)Renderer\Dependencies\glew\include;$(SolutionDir)Renderer\Dependencies\glm\;$(SolutionDir)Renderer\Dependencies\imgui\;$(SolutionDir)Renderer\Dependencies\nlohmann</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
@@ -214,7 +215,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;_SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Renderer\Dependencies\glfw\include;$(SolutionDir)Renderer\Dependencies\glew\include;$(SolutionDir)Renderer\Dependencies\glm\;$(SolutionDir)Renderer\Dependencies\imgui\;$(SolutionDir)Renderer\Dependencies\nlohmann</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
@@ -233,7 +234,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;_SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Renderer\Dependencies\glfw\include;$(SolutionDir)Renderer\Dependencies\glew\include;$(SolutionDir)Renderer\Dependencies\glm\;$(SolutionDir)Renderer\Dependencies\imgui\;$(SolutionDir)Renderer\Dependencies\nlohmann</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
