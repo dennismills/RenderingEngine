@@ -10,6 +10,7 @@
 #include "../Camera/Camera.h"
 #include "../EngineUI/EngineUI.h"
 #include "../EngineUI/EngineViewport.h"
+#include "../EngineUI/Grid/Grid.h"
 
 #include <GLFW/glfw3.h>
 #include <imgui.h>
@@ -49,6 +50,7 @@ private:
 	ModelManager models;
 	EngineViewport viewport;
 	EngineUI engineUI;
+	Grid* grid;
 
 	//ParticleSystem ps;
 };
