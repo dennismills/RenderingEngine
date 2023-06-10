@@ -27,7 +27,11 @@ in vec4 fragWorldPosition;
 in vec3 fragModelAmbient;
 in vec3 fragModelDiffuse;
 in vec3 fragModelSpecular;
+
+in vec3 fragCameraPos;
+
 in float fragModelShininess;
+in float fMaxRenderDistance;
 
 in float fragHasTexture;
 
@@ -120,8 +124,8 @@ void main()
         }
     }
 
-
-    color = vec4((directionalColor + pointColor + spotColor) + fragModelAmbient, 0.0) + textureColor;
+    float d = clamp(distance(fragWorldPosition.xz, fragCameraPos.xz) / fMaxRenderDistance, 0.0, 1.0);
+    color = mix(vec4((directionalColor + pointColor + spotColor) + fragModelAmbient, 0.0) + textureColor, vec4(0.0, 0.0, 0.0, 0.0), d);
     if (color.a < 0.2)
     {
         discard;

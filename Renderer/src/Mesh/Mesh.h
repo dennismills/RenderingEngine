@@ -36,6 +36,15 @@ public:
 	// Used for OBJ models where we don't have index data
 	void addOBJVertex(const Vertex& vertex)
 	{
+		min.x = std::min(vertex.position.x, min.x);
+		min.y = std::min(vertex.position.y, min.y);
+		min.z = std::min(vertex.position.z, min.z);
+
+		max.x = std::max(vertex.position.x, max.x);
+		max.y = std::max(vertex.position.y, max.y);
+		max.z = std::max(vertex.position.z, max.z);
+
+
 		auto it = indexMap.find(vertex.position);
 		if (it != indexMap.end())
 		{
@@ -78,11 +87,15 @@ public:
 	const glm::mat4& getModelMatrix() const { return modelMatrix; }
 	std::vector<Vertex> getVertices() const { return vertices; }
 
+	glm::vec3 getMin() const { return min; };
+	glm::vec3 getMax() const { return max; };
+
 private:
 	std::unordered_map<glm::vec3, unsigned int> indexMap;
 	unsigned int ibo;
 	unsigned int vbo;
 protected:
+	glm::vec3 min = glm::vec3(9999999999), max = glm::vec3(-9999999999);
 	glm::vec3 position;
 	glm::mat4 modelMatrix;
 	std::vector<Vertex> vertices;

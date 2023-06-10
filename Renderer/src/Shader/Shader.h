@@ -74,6 +74,11 @@ public:
 		glint loc = getID(programID, name);
 		glUniform1f(loc, f);
 	}
+	void setUniformVec2(const glm::vec2& vec, std::string name)
+	{
+		glint loc = getID(programID, name);
+		glUniform2fv(loc, 1, glm::value_ptr(vec));
+	}
 	void setUniformVec3(const glm::vec3& vec, std::string name)
 	{
 		glint loc = getID(programID, name);

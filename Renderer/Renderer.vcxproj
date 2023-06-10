@@ -38,6 +38,7 @@
     <ClCompile Include="src\Texture\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\EngineUI\Grid\Grid.h" />
     <ClInclude Include="src\Bounds\BoundingRect.h" />
     <ClInclude Include="src\Camera\Camera.h" />
     <ClInclude Include="src\EngineUI\EngineUI.h" />
@@ -82,9 +83,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="src\assets\particleSystems\FireParticleSystem.json" />
+    <None Include="src\ShaderPrograms\grid\gridMain.frag" />
+    <None Include="src\ShaderPrograms\grid\gridMain.vert" />
     <None Include="src\ShaderPrograms\Light.vert" />
-    <None Include="src\ShaderPrograms\main.frag" />
-    <None Include="src\ShaderPrograms\main.vert" />
     <None Include="src\ShaderPrograms\particles\particleMain.frag" />
     <None Include="src\ShaderPrograms\particles\particleMain.vert" />
     <None Include="src\ShaderPrograms\UBOMain.frag" />

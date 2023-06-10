@@ -9,7 +9,7 @@ Renderer::Renderer(float fov, GLFWwindow* window)
 {
 	initImGui();
 
-	camera = Camera(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, -1.0));
+	camera = Camera(glm::vec3(0.0, 10.0, 10), glm::vec3(0.0, 0.0, -1.0));
 
 	defaultShader = Shader("src/ShaderPrograms/UBOMain.vert", "src/ShaderPrograms/UBOMain.frag");
 	particleShader = Shader("src/ShaderPrograms/particles/particleMain.vert", "src/ShaderPrograms/particles/particleMain.frag");
@@ -19,6 +19,9 @@ Renderer::Renderer(float fov, GLFWwindow* window)
 	models = ModelManager(vao);
 	initModels();
 	initLights();
+
+	grid = new Grid("src/ShaderPrograms/grid/gridMain.vert", "src/ShaderPrograms/grid/gridMain.frag");
+	engineUI.addToSceneEditor(grid);
 }
 
 void Renderer::initImGui()
@@ -58,12 +61,12 @@ void Renderer::initModels()
 	std::shared_ptr<Texture> stallTexture = std::shared_ptr<Texture>(new Texture("src/assets/textures/stallTexture.png"));
 
 	std::shared_ptr<Model> stall = std::shared_ptr<Model>(new ObjModel("src/assets/stall.obj", vao));
-	stall->translate(glm::vec3(0, -3, -50));
+	stall->translate(glm::vec3(0, stall->getMin().y, 0));
 	stall->setTexture(stallTexture);
 	stall->setMaterial({ glm::vec3(0.1, 0.1, 0.1), glm::vec3(0.5, 0.5, 0.5), glm::vec3(1.0, 1.0, 1.0), 4 });
 
 	std::shared_ptr<Model> terrain = std::shared_ptr<Model>(new Terrain(500, 500, vao));
-	terrain->translate(glm::vec3(0, -20, -100));
+	terrain->translate(glm::vec3(0, 10, 0));
 	terrain->rotate(0.5, glm::vec3(1, 0, 0));
 	terrain->rotate(2.25, glm::vec3(0, 1, 0));
 	terrain->setMaterial({ glm::vec3(0.1, 0.1, 0.1), glm::vec3(0.5, 0.5, 0.5), glm::vec3(1.0, 1.0, 1.0), 4 });
@@ -75,7 +78,6 @@ void Renderer::initModels()
 	{
 		engineUI.addToSceneEditor(models[i].get());
 	}
-
 	/*ps.loadFromConfig("src/assets/particleSystems/FireParticleSystem.json");*/
 }
 
@@ -127,6 +129,17 @@ void Renderer::update(float dt)
 
 	engineUI.relayKeyPresses(window);
 	//ps.update(dt, camera);
+
+	grid->getShader().setUniformMat4(projectionMatrix, "proj");
+	grid->getShader().setUniformMat4(glm::inverse(projectionMatrix), "invProj");
+
+	grid->getShader().setUniformMat4(camera.getViewMatrix(), "view");
+	grid->getShader().setUniformMat4(invViewMatrix, "invView");
+
+	glm::vec3 cPos = camera.getPosition();
+	grid->setPosition(glm::vec3(cPos.x, 0.0, cPos.z));
+	grid->getShader().setUniformMat4(grid->getModelMatrix(), "model");
+	grid->getShader().setUniformVec2(EngineViewport::getViewportDimensions(), "viewport");
 }
 
 void Renderer::composeEngineUIFrame()
@@ -167,7 +180,7 @@ void Renderer::renderFrame()
 	// It is in a block so we know where to init the framebuffer
 	// and where to unbind the framebuffer for the GUI
 	{
-		glClearColor(0.25f, 0.0f, 0.75f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
@@ -189,6 +202,8 @@ void Renderer::renderFrame()
 		defaultShader.setUniformMat4(invViewMatrix, "invView");
 		defaultShader.setUniformMat4(projectionMatrix, "projection");
 		defaultShader.setUBO(lights, "LightsBlock");
+		defaultShader.setUniformVec3(camera.getPosition(), "cameraPos");
+		defaultShader.setUniformFloat(Grid::getRenderDistance(), "maxRenderDistance");
 		lights.fillLightBuffer();
 
 		for (unsigned int i = 0; i < models.size(); ++i)
@@ -202,6 +217,8 @@ void Renderer::renderFrame()
 		glDisableVertexAttribArray(2);
 		glDisable(GL_BLEND);
 		Shader::unbind();
+
+		grid->render();
 	}
 	endImGuiFrame();
 }
@@ -214,4 +231,6 @@ void Renderer::killImGui()
 }
 
 Renderer::~Renderer()
-{}
+{
+	delete grid;
+}

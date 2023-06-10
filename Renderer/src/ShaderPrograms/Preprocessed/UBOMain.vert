@@ -10,10 +10,14 @@ uniform mat4 view;
 uniform mat4 invView;
 uniform mat4 projection;
 uniform float hasTexture;
+uniform float maxRenderDistance;
 
 uniform vec3 modelAmbient;
 uniform vec3 modelDiffuse;
 uniform vec3 modelSpecular;
+
+uniform vec3 cameraPos;
+
 uniform float modelShininess;
 
 out vec2 fragUV;
@@ -22,9 +26,14 @@ out vec3 toCameraVector;
 out vec4 fragWorldPosition;
 out float fragHasTexture;
 
+out float fMaxRenderDistance;
+
 out vec3 fragModelAmbient;
 out vec3 fragModelDiffuse;
 out vec3 fragModelSpecular;
+
+out vec3 fragCameraPos;
+
 out float fragModelShininess;
 
 void main()
@@ -40,6 +49,10 @@ void main()
     fragModelDiffuse = modelDiffuse;
     fragModelSpecular = modelSpecular;
     fragModelShininess = modelShininess;
+
+    fragCameraPos = cameraPos;
+
+    fMaxRenderDistance = maxRenderDistance;
 
     gl_Position = projection * view * worldPosition;
 }

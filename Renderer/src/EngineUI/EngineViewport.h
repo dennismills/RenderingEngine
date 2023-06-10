@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <imgui.h>
 #include <GL/glew.h>
+#include <glm/glm.hpp>
 
 #include <stdexcept>
 
@@ -24,7 +25,8 @@ public:
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ImGui::GetWindowSize().x, ImGui::GetWindowSize().y, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
-		glViewport(0, 0, ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
+		viewportDim = glm::vec2(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
+		glViewport(0, 0, viewportDim.x, viewportDim.y);
 
 		glGenRenderbuffers(1, &rbo);
 		glBindRenderbuffer(GL_RENDERBUFFER, rbo);
@@ -51,6 +53,11 @@ public:
 		ImVec2 rectMin = ImGui::GetItemRectMin();
 		ImVec2 rectMax = ImGui::GetWindowSize();
 		rectMax.y -= ImGui::GetTextLineHeight() * 3;
+
+		// Set the OpenGL viewport to match the ImGui window size
+		viewportDim = glm::vec2(rectMax.x - rectMin.x, rectMax.y - rectMin.y);
+		glViewport(0, 0, viewportDim.x, viewportDim.y);
+
 		ImTextureID texID = (void*)(intptr_t)tex;
 		ImGui::Image(texID, rectMax, ImVec2(0, 1), ImVec2(1, 0));
 		if (ImGui::IsWindowFocused())
@@ -72,7 +79,9 @@ public:
 	}
 
 	static bool isFocused() { return hasFocus; }
+	static glm::vec2 getViewportDimensions() { return viewportDim; }
 private:
 	GLuint fbo, tex, rbo;
 	static bool hasFocus;
+	static glm::vec2 viewportDim;
 };
