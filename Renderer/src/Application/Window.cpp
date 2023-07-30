@@ -76,14 +76,24 @@ Window::Window(std::string title, int width, int height)
     glfwSetCursorPosCallback(window, Mouse::mouseCallback);
     glfwSetMouseButtonCallback(window, Mouse::mouseButtonCallback);
 
-    float fov = (float)width / (float)height;
+    float aspectRatio = (float)width / (float)height;
     if (width < 0 || height < 0)
     {
         int w, h;
         glfwGetWindowSize(window, &w, &h);
-        fov = (float)w / (float)h;
+        aspectRatio = (float)w / (float)h;
     }
-    renderer = new Renderer(fov, window);
+    renderer = new Renderer(aspectRatio, 45.0f, window);
+
+    glfwSetWindowUserPointer(window, renderer);
+    glfwSetScrollCallback(window, [](GLFWwindow* window, double xOffset, double yOffset)
+    {
+        Renderer* renderer = static_cast<Renderer*>(glfwGetWindowUserPointer(window));
+        if (renderer)
+        {
+            renderer->zoom(window, xOffset, yOffset);
+        }
+    });
 
     glfwSetWindowSizeCallback(window, [](GLFWwindow* window, int width, int height)
     {

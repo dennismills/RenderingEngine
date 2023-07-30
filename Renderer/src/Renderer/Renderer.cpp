@@ -1,11 +1,13 @@
 #include "Renderer.h"
 #define DEBUG_TOOLS
 
-Renderer::Renderer(float fov, GLFWwindow* window)
+Renderer::Renderer(float aspectRatio, float fov, GLFWwindow* window)
 :	oldWidth( 0 ),
 	oldHeight( 0 ),
 	window( window ),
-	projectionMatrix( glm::perspective(glm::radians(45.0f), fov, 0.1f, 1000.0f) )
+	aspectRatio( aspectRatio ),
+	fov( fov ),
+	projectionMatrix( glm::perspective(glm::radians(fov), aspectRatio, 0.1f, 1000.0f) )
 {
 	initImGui();
 
@@ -119,7 +121,8 @@ void Renderer::update(float dt)
 	glfwGetWindowSize(window, &w, &h);
 	if (w != oldWidth || oldHeight != h)
 	{
-		projectionMatrix = glm::perspective(glm::radians(45.0f), (float)w / (float)h, 0.1f, 1000.0f);
+		aspectRatio = (float)w / (float)h;
+		projectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, 0.1f, 1000.0f);
 		oldWidth = w;
 		oldHeight = h;
 	}

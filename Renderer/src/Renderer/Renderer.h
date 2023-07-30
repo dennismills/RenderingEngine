@@ -21,7 +21,7 @@
 class Renderer
 {
 public:
-	Renderer(float fov, GLFWwindow* window);
+	Renderer(float aspectRatio, float fov, GLFWwindow* window);
 	~Renderer();
 	void renderFrame();
 	void update(float dt);
@@ -37,11 +37,29 @@ private:
 	void endImGuiFrame();
 	void composeEngineUIFrame(); // For engine UI debugging
 
+// Needed for camera to be able to zoom
+public:
+	void zoom(GLFWwindow* window, double xOffset, double yOffset)
+	{
+		fov -= 3.0 * yOffset;
+		if (fov < 1.0f)
+		{
+			fov = 1.0f;
+		}
+		if (fov > 90.0f)
+		{
+			fov = 90.0f;
+		}
+		projectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, 0.1f, 1000.0f);
+	}
+
 private:
 	Shader defaultShader, particleShader;
 	glm::mat4 projectionMatrix, invViewMatrix;
 	unsigned int vao;
 	unsigned int oldWidth, oldHeight;
+	float fov;
+	float aspectRatio;
 	GLFWwindow* window;
 
 private:

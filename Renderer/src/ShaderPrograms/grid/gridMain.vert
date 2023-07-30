@@ -22,6 +22,16 @@ void main()
     worldPos = vec4(pos, 1.0);
 
     fragLineColor = lineColor;
+    float eps = 0.25;
+
+    if (pos.x < eps && pos.x > -eps)
+    {
+        fragLineColor = vec3(0.0, 1.0, 0.0);
+    }
+    if (pos.z < eps && pos.z > -eps)
+    {
+        fragLineColor = vec3(0.0, 0.0, 1.0);
+    }
     fMaxRenderDistance = maxRenderDistance;
     gl_Position = proj * view * model * vec4(pos.xyz, 1.0);
 }
